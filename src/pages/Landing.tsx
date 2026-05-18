@@ -1,360 +1,276 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { ArrowRight, CheckCircle2, ShieldCheck, Target, TrendingUp, Zap, BarChart3, Lock } from 'lucide-react';
-import { motion, useInView } from 'framer-motion';
+import { ArrowRight, Activity, ShieldAlert, Sparkles, LineChart, Target, Zap } from 'lucide-react';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { setResults } from '../store/predictionSlice';
 
-/* ── DesignMD Motion Primitives ── 
-   Notion:   Unhurried, human motion — respects the rhythm of thought
-   Stripe:   Deliberate, calm, trustworthy — communicates certainty
-   Shopify:  Calm, confidence-inspiring — present when needed, invisible when not
-   
-   Patterns applied:
-   - Fade Slide: y:8→0 · 250ms · ease-out-expo
-   - Scale Pop: scale:0.92→1 · 200ms · ease-out-expo  
-   - List Stagger: y:12→0 · 40ms delay
-   - Grid Stagger: scale:0.6→1 · 30ms delay
-   - Number Counter: 0→target · 1200ms · easeOutExpo
-*/
-
-// Easing: ease-out-expo from DesignMD
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
-// Notion-style unhurried spring
-const gentleSpring = { type: 'spring' as const, stiffness: 200, damping: 24, mass: 0.8 };
-
-// Stripe-style deliberate spring (for interactive elements)
-const interactiveSpring = { type: 'spring' as const, stiffness: 400, damping: 30 };
-
-// Staggered children container
-const staggerContainer = (staggerDelay = 0.04) => ({
-  hidden: { opacity: 1 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: staggerDelay, delayChildren: 0.1 }
-  }
-});
-
-// List stagger item (y:12→0 · 40ms)
-const listStaggerItem = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { 
-    opacity: 1, y: 0,
-    transition: { duration: 0.35, ease: easeOutExpo }
-  }
-};
-
-// Grid stagger item (scale:0.6→1 · 30ms)
-const gridStaggerItem = {
-  hidden: { opacity: 0, scale: 0.85 },
-  visible: { 
-    opacity: 1, scale: 1,
-    transition: { duration: 0.3, ease: easeOutExpo }
-  }
-};
-
-// Animated counter component (Number Counter pattern: 0→target · 1200ms · easeOutExpo)
-function AnimatedCounter({ value, suffix = '' }: { value: string; suffix?: string }) {
+function AnimatedCounter({ value }: { value: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const [displayed, setDisplayed] = useState('0');
 
   useEffect(() => {
     if (!isInView) return;
-    const numericMatch = value.match(/[\d,]+/);
+    const numericMatch = value.match(/[\d.]+/);
     if (!numericMatch) { setDisplayed(value); return; }
     
-    const target = parseInt(numericMatch[0].replace(/,/g, ''));
+    const target = parseFloat(numericMatch[0]);
+    const isFloat = numericMatch[0].includes('.');
     const prefix = value.slice(0, value.indexOf(numericMatch[0]));
     const postfix = value.slice(value.indexOf(numericMatch[0]) + numericMatch[0].length);
-    const duration = 1200;
+    const duration = 2000;
     const start = performance.now();
 
     const animate = (now: number) => {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // easeOutExpo
       const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      const current = Math.round(eased * target);
-      const formatted = current.toLocaleString();
-      setDisplayed(`${prefix}${formatted}${postfix}`);
+      const current = eased * target;
+      
+      const formattedNumber = isFloat ? current.toFixed(1) : Math.round(current).toString();
+      setDisplayed(`${prefix}${formattedNumber}${postfix}`);
+      
       if (progress < 1) requestAnimationFrame(animate);
     };
     requestAnimationFrame(animate);
   }, [isInView, value]);
 
-  return <span ref={ref}>{displayed}{suffix}</span>;
+  return <span ref={ref}>{displayed === '0' ? value.replace(/[\d.]+/g, '0') : displayed}</span>;
 }
 
 export default function Landing() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
+  // Scroll animations for the hero
+  const { scrollYProgress } = useScroll();
+  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, 150]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
-  const handleViewExample = (e: React.MouseEvent) => {
+  // Scroll animations for the features section
+  const featuresRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: featuresScroll } = useScroll({
+    target: featuresRef,
+    offset: ["start center", "end center"]
+  });
+  
+  const handleDemo = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch(setResults({
       successScore: 82,
-      weakPoints: ['Marketing budget is heavily reliant on paid ads', 'Team lacks a dedicated backend developer'],
-      riskAnalysis: 'Low risk overall. You have a solid validation plan, but you need to transition to organic growth channels sooner rather than later to sustain your margins.',
-      recommendations: ['Hire or partner with a technical lead', 'Start a campus ambassador program', 'Test pricing elasticity with a smaller cohort first']
+      weakPoints: ['High CAC dependency', 'Lack of technical co-founder'],
+      riskAnalysis: 'Moderate risk. Strong market demand but execution relies too heavily on paid acquisition. Need to diversify channels.',
+      recommendations: ['Build a community-led growth motion', 'Find a technical advisor', 'Focus on SEO for long-term CAC reduction']
     }));
     navigate('/dashboard');
   };
 
   return (
-    <div className="flex flex-col items-center bg-white overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative w-full max-w-7xl mx-auto px-6 pt-20 pb-28 md:pt-28 md:pb-36">
-        {/* Animated background glow */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: easeOutExpo }}
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-b from-primary-100/60 via-primary-50/30 to-transparent rounded-full blur-3xl pointer-events-none"
-        />
-        
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer(0.08)}
-          className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto"
-        >
-          {/* Title — Fade Slide with stagger */}
-          <motion.h1
-            variants={listStaggerItem}
-            className="text-4xl sm:text-5xl md:text-[56px] font-extrabold tracking-[-0.025em] leading-[1.1] text-surface-900 mb-6"
+    <div className="flex flex-col items-center bg-background overflow-hidden">
+      
+      {/* ─── HERO SECTION: Ethereal Mesh Gradient ─── */}
+      <section className="relative w-full min-h-[95vh] flex items-center justify-center pt-24 pb-20 px-6">
+        {/* Soft Mesh Gradients */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <motion.div 
+            animate={{ scale: [1, 1.1, 1], rotate: [0, 90, 0] }} 
+            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+            className="absolute -top-[10%] -right-[10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-primary-200/40 rounded-full blur-[100px] mix-blend-multiply" 
+          />
+          <motion.div 
+            animate={{ scale: [1, 1.2, 1], rotate: [0, -90, 0] }} 
+            transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+            className="absolute top-[20%] -left-[10%] w-[50vw] h-[50vw] max-w-[700px] max-h-[700px] bg-accent-200/40 rounded-full blur-[100px] mix-blend-multiply" 
+          />
+          <motion.div 
+            animate={{ scale: [1, 1.15, 1], y: [0, -50, 0] }} 
+            transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute bottom-0 left-[20%] w-[70vw] h-[40vw] max-w-[1000px] max-h-[600px] bg-primary-100/60 rounded-full blur-[120px] mix-blend-multiply" 
+          />
+        </div>
+
+        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto mt-10">
+
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.1, ease: easeOutExpo }}
+            className="text-[52px] sm:text-[72px] md:text-[88px] font-bold tracking-tight leading-[1.05] text-surface-900 mb-8"
           >
-            Validate your startup{' '}
-            <br className="hidden md:block" />
-            <span className="text-primary-500">before you build</span>
+            Clarity before <br className="hidden md:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-accent-500">launching your startup.</span>
           </motion.h1>
           
-          <motion.p
-            variants={listStaggerItem}
-            className="text-[17px] text-surface-500 mb-10 max-w-2xl leading-relaxed font-medium"
+          <motion.p 
+            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.2, ease: easeOutExpo }}
+            className="text-lg md:text-2xl text-surface-500 mb-14 max-w-2xl leading-relaxed font-medium"
           >
-            Predictify AI helps university students and founders evaluate their business ideas, 
-            analyze risks, and predict success using data-driven AI models.
+            An intelligent validation engine for founders. We simulate market conditions and identify risks so you can launch with absolute certainty.
           </motion.p>
           
-          {/* CTAs with interactive hover spring */}
-          <motion.div variants={listStaggerItem} className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} transition={interactiveSpring}>
-              <Link to="/predict" className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-primary-500 text-white font-semibold text-[15px] hover:bg-primary-600 transition-colors flex items-center justify-center gap-2 shadow-md shadow-primary-500/15 group">
-                Start Free Analysis
-                <motion.span className="inline-block" animate={{ x: [0, 3, 0] }} transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}>
-                  <ArrowRight className="w-4 h-4" />
-                </motion.span>
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} transition={interactiveSpring}>
-              <button onClick={handleViewExample} className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white text-surface-700 font-semibold text-[15px] hover:bg-surface-50 transition-colors flex items-center justify-center border border-surface-200 shadow-sm">
-                View Example
-              </button>
-            </motion.div>
-          </motion.div>
-          
-          <motion.div
-            variants={listStaggerItem}
-            className="mt-8 flex items-center gap-5 text-[13px] font-medium text-surface-400"
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: easeOutExpo }}
+            className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
           >
-            <motion.div className="flex items-center gap-1.5" whileHover={{ x: 2 }} transition={gentleSpring}>
-              <CheckCircle2 className="w-4 h-4 text-accent-500" /> Free for students
-            </motion.div>
-            <motion.div className="flex items-center gap-1.5" whileHover={{ x: 2 }} transition={gentleSpring}>
-              <CheckCircle2 className="w-4 h-4 text-accent-500" /> Data privacy guaranteed
-            </motion.div>
+            <Link to="/predict" className="group relative w-full sm:w-auto overflow-hidden rounded-full bg-surface-900 px-8 py-4 text-[15px] font-bold text-white transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-surface-900/10 flex justify-center items-center gap-2">
+              <span className="relative z-10 flex items-center gap-2">Analyze Your Idea <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
+            </Link>
+            <button onClick={handleDemo} className="w-full sm:w-auto px-8 py-4 rounded-full glass-panel text-surface-900 font-bold text-[15px] hover:bg-white/80 transition-all active:scale-95 flex justify-center items-center">
+              View Sample Report
+            </button>
           </motion.div>
         </motion.div>
+      </section>
 
-        {/* Dashboard Preview Card — Slide up with spring */}
-        <motion.div
-          initial={{ opacity: 0, y: 60, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 0.6, duration: 0.8, ease: easeOutExpo }}
-          className="relative mt-16 max-w-4xl mx-auto"
-        >
-          <motion.div
-            whileHover={{ y: -4, boxShadow: '0 25px 60px -12px rgba(0, 0, 0, 0.1)' }}
-            transition={gentleSpring}
-            className="bg-white rounded-2xl border border-surface-200 shadow-xl shadow-surface-900/5 p-6 md:p-8"
-          >
-            <div className="flex items-center gap-2 mb-6">
-              <motion.div className="w-3 h-3 rounded-full bg-surface-200" whileHover={{ scale: 1.3, backgroundColor: '#EF4444' }} />
-              <motion.div className="w-3 h-3 rounded-full bg-surface-200" whileHover={{ scale: 1.3, backgroundColor: '#F59E0B' }} />
-              <motion.div className="w-3 h-3 rounded-full bg-surface-200" whileHover={{ scale: 1.3, backgroundColor: '#10B981' }} />
-              <span className="ml-3 text-[12px] font-medium text-surface-400">Predictify AI — Analysis Dashboard</span>
-            </div>
+      {/* ─── EDITORIAL SECTION: Sticky Scroll ─── */}
+      <section ref={featuresRef} className="relative w-full max-w-7xl mx-auto px-6 py-24 md:py-40">
+        <div className="flex flex-col lg:flex-row items-start gap-16 lg:gap-24 relative">
+          
+          {/* Sticky Left Sidebar */}
+          <div className="lg:w-1/3 lg:sticky lg:top-40 relative z-20">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-surface-900 mb-6">
+              The Engine.
+            </h2>
+            <p className="text-lg text-surface-500 leading-relaxed mb-12">
+              We process hundreds of data points—from competitor density to search volume trends—to give you a crystal-clear picture of your startup's viability.
+            </p>
             
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer(0.1)}
-              className="grid grid-cols-1 md:grid-cols-3 gap-4"
-            >
+            {/* Scroll Progress Indicator */}
+            <div className="hidden lg:flex flex-col gap-6 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-surface-200">
+              <motion.div 
+                className="absolute left-[11px] top-2 bottom-2 w-[2px] bg-primary-500 origin-top"
+                style={{ scaleY: featuresScroll }}
+              />
+              
               {[
-                { label: 'Success Score', value: '82', sub: '/100', badge: '↑ Solid Potential', badgeColor: 'text-accent-600 bg-accent-50' },
-                { label: 'Risk Level', value: 'Low', sub: '', badge: '2 concerns found', badgeColor: 'text-primary-600 bg-primary-50' },
-                { label: 'Recommendations', value: '3', sub: '', badge: 'Action items ready', badgeColor: 'text-primary-600 bg-primary-50' },
-              ].map((card, i) => (
-                <motion.div
-                  key={i}
-                  variants={gridStaggerItem}
-                  whileHover={{ y: -2, transition: { duration: 0.2 } }}
-                  className="bg-surface-50 rounded-xl p-5 border border-surface-200/60"
-                >
-                  <div className="text-[12px] font-semibold text-surface-400 uppercase tracking-wider mb-3">{card.label}</div>
-                  <div className="text-3xl font-bold text-surface-900 mb-1">{card.value}<span className="text-lg text-surface-400 font-medium">{card.sub}</span></div>
-                  <div className={`text-[12px] font-semibold px-2 py-0.5 rounded-md inline-block ${card.badgeColor}`}>{card.badge}</div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* Features Section — Notion-style pastel cards with Grid Stagger */}
-      <section className="w-full bg-surface-50 py-24 md:py-28">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            variants={staggerContainer(0.06)}
-            className="text-center max-w-2xl mx-auto mb-14"
-          >
-            <motion.h2 variants={listStaggerItem} className="text-3xl md:text-[36px] font-bold tracking-tight text-surface-900 mb-4">
-              Everything you need to launch safely
-            </motion.h2>
-            <motion.p variants={listStaggerItem} className="text-[16px] text-surface-500 font-medium leading-relaxed">
-              We take the guesswork out of building a business so you can focus on execution.
-            </motion.p>
-          </motion.div>
-          
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
-            variants={staggerContainer(0.08)}
-            className="grid grid-cols-1 md:grid-cols-3 gap-5"
-          >
-            {[
-              { icon: Target, title: 'Market Validation', desc: 'Understand your target audience and check if your solution actually solves a real problem in the market.', iconBg: 'bg-primary-50', iconColor: 'text-primary-600' },
-              { icon: ShieldCheck, title: 'Risk Assessment', desc: 'Identify early red flags regarding funding, team experience, or aggressive competitors before they hit you.', iconBg: 'bg-accent-50', iconColor: 'text-accent-600' },
-              { icon: TrendingUp, title: 'Growth Strategy', desc: 'Get actionable steps and recommendations tailored specifically to your industry and business model.', iconBg: 'bg-purple-50', iconColor: 'text-purple-600' }
-            ].map((feature, i) => (
-              <motion.div
-                key={i}
-                variants={gridStaggerItem}
-                whileHover={{ y: -6, scale: 1.02, transition: { ...gentleSpring } }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-white rounded-2xl p-7 border border-surface-200 hover:border-primary-200 hover:shadow-xl hover:shadow-primary-500/5 transition-all cursor-default group"
-              >
-                <motion.div
-                  whileHover={{ rotate: [0, -10, 10, 0] }}
-                  transition={{ duration: 0.5 }}
-                  className={`w-11 h-11 rounded-xl ${feature.iconBg} flex items-center justify-center mb-5`}
-                >
-                  <feature.icon className={`w-5 h-5 ${feature.iconColor}`} />
-                </motion.div>
-                <h3 className="text-[17px] font-bold text-surface-900 mb-2">{feature.title}</h3>
-                <p className="text-[14px] text-surface-500 leading-relaxed font-medium">{feature.desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Stats Section — Number Counter animation */}
-      <section className="w-full py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
-            variants={staggerContainer(0.06)}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6"
-          >
-            {[
-              { icon: Zap, value: '2,400', suffix: '+', label: 'Ideas Analyzed' },
-              { icon: BarChart3, value: '89', suffix: '%', label: 'Prediction Accuracy' },
-              { icon: Lock, value: '100', suffix: '%', label: 'Data Privacy' },
-              { icon: Target, value: '45', suffix: 's', label: 'Avg. Analysis Time' },
-            ].map((stat, i) => (
-              <motion.div
-                key={i}
-                variants={gridStaggerItem}
-                whileHover={{ y: -4, transition: gentleSpring }}
-                className="text-center py-6"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={interactiveSpring}
-                  className="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center mx-auto mb-4"
-                >
-                  <stat.icon className="w-5 h-5 text-primary-500" />
-                </motion.div>
-                <div className="text-2xl md:text-3xl font-bold text-surface-900 mb-1">
-                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                { num: '01', label: 'Market Validation' },
+                { num: '02', label: 'Risk Identification' },
+                { num: '03', label: 'Actionable Strategy' }
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-6 relative z-10">
+                  <div className="w-6 h-6 rounded-full bg-surface-50 border-2 border-surface-200 flex items-center justify-center text-[10px] font-bold text-surface-400">
+                    {/* We can animate this based on scroll, but keeping it simple for aesthetics */}
+                  </div>
+                  <div className="text-[14px] font-bold text-surface-400 uppercase tracking-widest">{item.label}</div>
                 </div>
-                <div className="text-[14px] font-medium text-surface-400">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Scrolling Right Cards */}
+          <div className="lg:w-2/3 flex flex-col gap-16 md:gap-32 relative z-10">
+            
+            {/* Feature 1 */}
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: easeOutExpo }}
+              className="glass-panel rounded-[2rem] p-8 md:p-12 border-white/60 relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary-100 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:bg-primary-200 transition-colors duration-700" />
+              <div className="w-16 h-16 rounded-2xl bg-white shadow-sm border border-surface-100 flex items-center justify-center mb-8 relative z-10">
+                <Target className="w-8 h-8 text-primary-500" />
+              </div>
+              <h3 className="text-3xl font-bold text-surface-900 mb-4 relative z-10">Market Alignment</h3>
+              <p className="text-lg text-surface-500 leading-relaxed relative z-10 max-w-lg mb-8">
+                Stop building features nobody wants. We analyze your core value proposition against real-world market demands to ensure you have a targeted, hungry audience.
+              </p>
+              <div className="flex gap-4 relative z-10">
+                <div className="px-4 py-2 rounded-lg bg-surface-50 border border-surface-100 text-[13px] font-bold text-surface-700">Competitor Density</div>
+                <div className="px-4 py-2 rounded-lg bg-surface-50 border border-surface-100 text-[13px] font-bold text-surface-700">Audience Targeting</div>
+              </div>
+            </motion.div>
+
+            {/* Feature 2 */}
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: easeOutExpo }}
+              className="glass-panel rounded-[2rem] p-8 md:p-12 border-white/60 relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 w-64 h-64 bg-accent-100 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:bg-accent-200 transition-colors duration-700" />
+              <div className="w-16 h-16 rounded-2xl bg-white shadow-sm border border-surface-100 flex items-center justify-center mb-8 relative z-10">
+                <ShieldAlert className="w-8 h-8 text-accent-500" />
+              </div>
+              <h3 className="text-3xl font-bold text-surface-900 mb-4 relative z-10">Risk Surface Mapping</h3>
+              <p className="text-lg text-surface-500 leading-relaxed relative z-10 max-w-lg mb-8">
+                Identify operational, technical, and financial risks before you spend a dime. Our models flag potential pitfalls that kill 90% of early-stage startups.
+              </p>
+              <div className="w-full h-24 rounded-xl bg-surface-50 border border-surface-100 relative z-10 flex items-center px-6 overflow-hidden">
+                <div className="flex-1">
+                  <div className="text-[12px] font-bold text-surface-400 uppercase tracking-wider mb-2">Technical Debt Risk</div>
+                  <div className="w-full h-2 rounded-full bg-surface-200 overflow-hidden"><div className="w-[15%] h-full bg-accent-500 rounded-full" /></div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Feature 3 */}
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: easeOutExpo }}
+              className="glass-panel rounded-[2rem] p-8 md:p-12 border-white/60 relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 w-64 h-64 bg-orange-100 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:bg-orange-200 transition-colors duration-700" />
+              <div className="w-16 h-16 rounded-2xl bg-white shadow-sm border border-surface-100 flex items-center justify-center mb-8 relative z-10">
+                <LineChart className="w-8 h-8 text-orange-500" />
+              </div>
+              <h3 className="text-3xl font-bold text-surface-900 mb-4 relative z-10">Step-by-Step Playbooks</h3>
+              <p className="text-lg text-surface-500 leading-relaxed relative z-10 max-w-lg">
+                Walk away with a comprehensive roadmap. We provide custom recommendations for MVP features, marketing channels, and timeline expectations based on your specific niche.
+              </p>
+            </motion.div>
+
+          </div>
         </div>
       </section>
 
-      {/* CTA Section — Zoom-inspired blue gradient with Scale Pop */}
-      <section className="w-full py-24">
+      {/* ─── DATA & TRUST: Minimalist Stats ─── */}
+      <section className="w-full py-24 bg-white border-y border-surface-100">
         <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.96 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.6, ease: easeOutExpo }}
-            className="bg-gradient-to-br from-primary-500 via-primary-400 to-primary-600 rounded-3xl p-12 md:p-16 text-center relative overflow-hidden"
-          >
-            {/* Floating decorative circles */}
-            <motion.div
-              animate={{ y: [-10, 10, -10], x: [-5, 5, -5] }}
-              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3"
-            />
-            <motion.div
-              animate={{ y: [10, -10, 10], x: [5, -5, 5] }}
-              transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/3 -translate-x-1/4"
-            />
-            
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer(0.08)}
-              className="relative z-10 max-w-lg mx-auto"
-            >
-              <motion.h2 variants={listStaggerItem} className="text-2xl md:text-3xl font-bold tracking-tight text-white mb-4">
-                Ready to validate your idea?
-              </motion.h2>
-              <motion.p variants={listStaggerItem} className="text-primary-100 font-medium mb-8 text-[16px]">
-                Join thousands of student founders who trust Predictify AI to make data-driven launch decisions.
-              </motion.p>
-              <motion.div variants={gridStaggerItem}>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={interactiveSpring} className="inline-block">
-                  <Link
-                    to="/predict"
-                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-white text-primary-600 font-bold text-[15px] hover:bg-primary-50 transition-colors shadow-lg shadow-primary-800/10 group"
-                  >
-                    Get Started Free
-                    <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}>
-                      <ArrowRight className="w-4 h-4" />
-                    </motion.span>
-                  </Link>
-                </motion.div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16">
+            {[
+              { value: '14K+', label: 'Ideas Validated', icon: Zap },
+              { value: '94%', label: 'Prediction Accuracy', icon: Activity },
+              { value: '2.4M', label: 'Data Points Analyzed', icon: Target },
+              { value: 'Top 1%', label: 'Founder Satisfaction', icon: Sparkles },
+            ].map((stat, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.1 }}
+                className="flex flex-col border-l-2 border-surface-100 pl-6"
+              >
+                <stat.icon className="w-5 h-5 text-surface-300 mb-6" />
+                <div className="text-3xl md:text-4xl font-bold text-surface-900 tracking-tight mb-2"><AnimatedCounter value={stat.value} /></div>
+                <div className="text-[14px] font-medium text-surface-500">{stat.label}</div>
               </motion.div>
-            </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CTA: The Final Ask ─── */}
+      <section className="w-full py-32 md:py-48 relative overflow-hidden">
+        {/* Soft background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-primary-100/50 rounded-full blur-[100px] pointer-events-none" />
+        
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease: easeOutExpo }}
+            className="text-4xl md:text-[64px] font-bold tracking-tight text-surface-900 mb-8 leading-[1.1]"
+          >
+            Ready to build <br />
+            with <span className="italic font-light text-primary-500">confidence?</span>
+          </motion.h2>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.1, ease: easeOutExpo }}
+            whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block"
+          >
+            <Link
+              to="/predict"
+              className="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-surface-900 text-white font-bold text-[16px] hover:shadow-2xl hover:shadow-surface-900/20 transition-all group"
+            >
+              Start Free Analysis
+              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                <ArrowRight className="w-4 h-4" />
+              </div>
+            </Link>
           </motion.div>
         </div>
       </section>

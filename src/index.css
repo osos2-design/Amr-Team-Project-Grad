@@ -2,39 +2,38 @@
 
 @theme {
   /* ═══════════════════════════════════════════════════════════════════
-     PREDICTIFY AI — Design System
-     Mix of: Cal.com (clean SaaS), Notion (friendly), Zoom (baby-blue)
-     Vibe: Friendly · Clean · Minimal · Baby Blue
+     PREDICTIFY AI — Editorial Glassmorphism
+     Vibe: Apple-like · Editorial · Ethereal · Soft Mesh Gradients
      ═══════════════════════════════════════════════════════════════════ */
 
-  /* Baby Blue Primary — inspired by Zoom's approachable blue, softened */
-  --color-primary-50:  #EFF8FF;
-  --color-primary-100: #DBEEFE;
-  --color-primary-200: #BFE0FE;
-  --color-primary-300: #93CCFD;
-  --color-primary-400: #60B1FA;
-  --color-primary-500: #3B95F6;
-  --color-primary-600: #2578EB;
-  --color-primary-700: #1D62D8;
-  --color-primary-800: #1E50AF;
-  --color-primary-900: #1E458A;
+  /* Baby Blue Primary */
+  --color-primary-50:  #F0F9FF;
+  --color-primary-100: #E0F2FE;
+  --color-primary-200: #BAE6FD;
+  --color-primary-300: #7DD3FC;
+  --color-primary-400: #38BDF8;
+  --color-primary-500: #0EA5E9;
+  --color-primary-600: #0284C7;
+  --color-primary-700: #0369A1;
+  --color-primary-800: #075985;
+  --color-primary-900: #0C4A6E;
 
-  /* Accent: Soft green for success signals */
-  --color-accent-50:  #ECFDF5;
-  --color-accent-100: #D1FAE5;
-  --color-accent-200: #A7F3D0;
-  --color-accent-400: #34D399;
-  --color-accent-500: #10B981;
-  --color-accent-600: #059669;
-  --color-accent-700: #047857;
+  /* Accent: Soft Indigo */
+  --color-accent-50:  #EEF2FF;
+  --color-accent-100: #E0E7FF;
+  --color-accent-200: #C7D2FE;
+  --color-accent-400: #818CF8;
+  --color-accent-500: #6366F1;
+  --color-accent-600: #4F46E5;
+  --color-accent-700: #4338CA;
 
-  /* Surfaces: Clean whites and gentle grays (Cal.com inspired) */
-  --color-surface-50:  #FAFBFC;
-  --color-surface-100: #F4F6F8;
-  --color-surface-200: #E8ECF1;
-  --color-surface-300: #D1D9E2;
-  --color-surface-400: #9BA5B4;
-  --color-surface-500: #6B7688;
+  /* Surfaces: Soft Warm Whites & Grays */
+  --color-surface-50:  #FFFFFF;
+  --color-surface-100: #FCFCFC;
+  --color-surface-200: #F3F4F6;
+  --color-surface-300: #E5E7EB;
+  --color-surface-400: #9CA3AF;
+  --color-surface-500: #6B7280;
   --color-surface-600: #4B5563;
   --color-surface-700: #374151;
   --color-surface-800: #1F2937;
@@ -54,24 +53,16 @@
   --color-warning-500: #F59E0B;
   --color-warning-600: #D97706;
 
-  /* Notion-inspired pastels for feature cards */
-  --color-pastel-blue:   #E8F4FD;
-  --color-pastel-green:  #E6F9F0;
-  --color-pastel-purple: #F0EBFF;
-  --color-pastel-pink:   #FDE8F0;
-  --color-pastel-orange: #FFF0E5;
-  --color-pastel-yellow: #FEF9E7;
-
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 @layer base {
   :root {
-    --background: #FFFFFF;
+    --background: #FCFCFC;
     --foreground: #111827;
     --card: #FFFFFF;
-    --card-foreground: #1F2937;
-    --border: #E8ECF1;
+    --card-foreground: #111827;
+    --border: #E5E7EB;
   }
 
   body {
@@ -83,7 +74,7 @@
   }
 
   ::selection {
-    background: rgba(59, 149, 246, 0.15);
+    background: rgba(255, 90, 35, 0.2);
     color: #111827;
   }
 }
@@ -91,4 +82,8 @@
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  
+  .glass-panel {
+    @apply bg-white/70 backdrop-blur-3xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)];
+  }
 }

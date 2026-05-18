@@ -92,7 +92,7 @@ export default function PredictForm() {
                   <s.icon className="w-5 h-5" />
                 )}
               </motion.div>
-              <span className={`text-[10px] sm:text-[12px] font-semibold absolute -bottom-8 sm:-bottom-6 text-center w-20 sm:w-auto transition-colors ${isActive ? 'text-primary-600' : 'text-surface-400'}`}>
+              <span className={`text-[10px] sm:text-[12px] font-semibold absolute -bottom-8 sm:-bottom-7 text-center whitespace-nowrap transition-colors ${isActive ? 'text-primary-600' : 'text-surface-400'}`}>
                 {s.label}
               </span>
             </div>

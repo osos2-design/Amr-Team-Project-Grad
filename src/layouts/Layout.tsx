@@ -7,7 +7,7 @@ export default function Layout() {
   const isDashboardLayout = ['/dashboard', '/history', '/chat', '/predict'].includes(location.pathname);
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-surface-900">
+    <div className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary-500/20">
       <Navbar />
       
       <main className={`flex-grow ${isDashboardLayout ? 'container mx-auto px-6 py-10 max-w-7xl' : ''}`}>
@@ -18,10 +18,10 @@ export default function Layout() {
         <footer className="border-t border-surface-200 py-14 bg-surface-50">
           <div className="container mx-auto px-6 max-w-7xl flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-lg bg-primary-500 flex items-center justify-center">
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-sm shadow-primary-500/20">
                 <Sparkles className="w-3.5 h-3.5 text-white" />
               </div>
-              <span className="font-bold text-[15px] tracking-tight text-surface-800">
+              <span className="font-bold text-[15px] tracking-tight text-surface-900">
                 Predictify AI
               </span>
             </div>

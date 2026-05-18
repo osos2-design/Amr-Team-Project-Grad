@@ -19,15 +19,15 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-lg border-b border-surface-200/60">
+    <header className="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-2xl border-b border-surface-200 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
       <div className="container mx-auto px-6 max-w-7xl h-16 flex items-center justify-between">
-        {/* Logo with hover animation */}
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 group">
           <motion.div
             whileHover={{ scale: 1.08, rotate: 5 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-            className="w-8 h-8 rounded-xl bg-primary-500 flex items-center justify-center shadow-sm shadow-primary-500/20 group-hover:shadow-md group-hover:shadow-primary-500/25 transition-shadow"
+            className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-sm shadow-primary-500/20 group-hover:shadow-md group-hover:shadow-primary-500/30 transition-shadow"
           >
             <Sparkles className="w-4 h-4 text-white" />
           </motion.div>
@@ -37,7 +37,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden md:flex items-center gap-1 p-1 rounded-2xl bg-surface-50 border border-surface-200 shadow-sm">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
             const Icon = item.icon;
@@ -45,22 +45,14 @@ export default function Navbar() {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-[14px] font-medium transition-all relative ${
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-[13px] font-semibold transition-all relative ${
                   isActive
-                    ? 'text-primary-600 bg-primary-50'
-                    : 'text-surface-500 hover:text-surface-800 hover:bg-surface-50'
+                    ? 'text-surface-900 bg-white shadow-sm border border-surface-200/50'
+                    : 'text-surface-500 hover:text-surface-900 hover:bg-surface-100'
                 }`}
               >
                 <Icon className={`w-4 h-4 ${isActive ? 'text-primary-500' : ''}`} />
                 {item.name}
-                {isActive && (
-                  <motion.div
-                    layoutId="navbar-indicator"
-                    className="absolute -bottom-[13px] left-3 right-3 h-[2px] bg-primary-500 rounded-full"
-                    initial={false}
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )}
               </Link>
             );
           })}
@@ -76,7 +68,7 @@ export default function Navbar() {
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-                className="w-6 h-6 rounded-lg bg-primary-100 flex items-center justify-center text-primary-700 text-[12px] font-semibold"
+                className="w-6 h-6 rounded-lg bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center text-primary-800 text-[12px] font-bold"
               >
                 {user?.name.charAt(0).toUpperCase()}
               </motion.div>
@@ -94,7 +86,7 @@ export default function Navbar() {
           <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} transition={{ type: 'spring', stiffness: 400, damping: 30 }}>
             <Link
               to="/predict"
-              className="px-4 py-2 rounded-xl bg-primary-500 hover:bg-primary-600 text-white text-[14px] font-semibold transition-colors shadow-sm shadow-primary-500/20 hover:shadow-md hover:shadow-primary-500/25"
+              className="px-4 py-2 rounded-xl bg-surface-900 text-white hover:bg-black text-[13px] font-bold transition-all shadow-md shadow-surface-900/10 hover:shadow-lg hover:shadow-surface-900/20"
             >
               New Analysis
             </Link>
@@ -104,7 +96,7 @@ export default function Navbar() {
         {/* Mobile Menu Toggle */}
         <motion.button
           whileTap={{ scale: 0.9 }}
-          className="md:hidden p-2 text-surface-500 hover:text-surface-800 hover:bg-surface-50 rounded-lg transition-colors"
+          className="md:hidden p-2 text-surface-500 hover:text-surface-900 hover:bg-surface-50 rounded-lg transition-colors"
           onClick={() => setIsOpen(!isOpen)}
         >
           <AnimatePresence mode="wait">
@@ -121,7 +113,7 @@ export default function Navbar() {
         </motion.button>
       </div>
 
-      {/* Mobile Nav — Slide Drawer pattern */}
+      {/* Mobile Nav — Slide Drawer */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -129,7 +121,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: easeOutExpo }}
-            className="md:hidden overflow-hidden bg-white border-b border-surface-200 shadow-lg shadow-surface-900/5"
+            className="md:hidden overflow-hidden bg-white/95 backdrop-blur-xl border-b border-surface-200"
           >
             <motion.div
               initial="hidden"
@@ -151,7 +143,7 @@ export default function Navbar() {
                       className={`flex items-center gap-3 px-4 py-3 rounded-xl text-[14px] font-medium transition-colors ${
                         isActive
                           ? 'bg-primary-50 text-primary-600'
-                          : 'text-surface-600 hover:bg-surface-50 hover:text-surface-800'
+                          : 'text-surface-600 hover:bg-surface-50 hover:text-surface-900'
                       }`}
                     >
                       <Icon className="w-4.5 h-4.5" />
@@ -160,14 +152,14 @@ export default function Navbar() {
                   </motion.div>
                 );
               })}
-              <div className="h-px bg-surface-200 my-2"></div>
+              <div className="h-px bg-surface-100 my-2"></div>
               <motion.div variants={{ hidden: { opacity: 0, x: -12 }, visible: { opacity: 1, x: 0, transition: { duration: 0.25, ease: easeOutExpo } } }}>
                 {isAuthenticated ? (
-                  <Link to="/profile" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-xl text-surface-600 hover:bg-surface-50 text-[14px] font-medium">
+                  <Link to="/profile" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-xl text-surface-600 hover:bg-surface-50 hover:text-surface-900 text-[14px] font-medium">
                     <User className="w-4.5 h-4.5" /> My Profile
                   </Link>
                 ) : (
-                  <Link to="/login" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-xl text-surface-600 hover:bg-surface-50 text-[14px] font-medium">
+                  <Link to="/login" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-xl text-surface-600 hover:bg-surface-50 hover:text-surface-900 text-[14px] font-medium">
                     <LogIn className="w-4.5 h-4.5" /> Sign In
                   </Link>
                 )}
@@ -175,7 +167,7 @@ export default function Navbar() {
               <motion.div variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0, transition: { duration: 0.25, ease: easeOutExpo } } }}>
                 <Link
                   to="/predict" onClick={() => setIsOpen(false)}
-                  className="flex justify-center items-center gap-2 py-3 rounded-xl bg-primary-500 text-white text-[14px] font-semibold mt-1 shadow-sm shadow-primary-500/20"
+                  className="flex justify-center items-center gap-2 py-3 rounded-xl bg-surface-900 text-white text-[14px] font-bold mt-1 shadow-md shadow-surface-900/10"
                 >
                   Start New Analysis
                 </Link>
