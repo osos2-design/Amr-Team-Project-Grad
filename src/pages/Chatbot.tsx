@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 type Message = {
   id: string;
@@ -8,12 +10,29 @@ type Message = {
   content: string;
 };
 
+// DesignMD Fade Slide pattern for messages
+const messageVariants = {
+  hidden: (isUser: boolean) => ({
+    opacity: 0,
+    y: 12,
+    x: isUser ? 20 : -20,
+    scale: 0.95
+  }),
+  visible: {
+    opacity: 1,
+    y: 0,
+    x: 0,
+    scale: 1,
+    transition: { duration: 0.3, ease: easeOutExpo }
+  }
+};
+
 export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
       role: 'assistant',
-      content: 'Hi there! I am your Safe AI Launch Advisor. I can help you brainstorm strategies, understand your risk factors better, or refine your business model. How can I assist you today?'
+      content: 'Hi there! I am your Predictify AI Advisor. I can help you brainstorm strategies, understand your risk factors better, or refine your business model. How can I assist you today?'
     }
   ]);
   const [input, setInput] = useState('');
@@ -49,99 +68,139 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="h-[calc(100vh-10rem)] max-w-4xl mx-auto flex flex-col bg-white border border-surface-200 rounded-3xl shadow-sm overflow-hidden mt-4">
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.25, ease: easeOutExpo }}
+      className="h-[calc(100vh-8rem)] max-w-4xl mx-auto flex flex-col bg-white border border-surface-200 rounded-2xl shadow-sm overflow-hidden mt-2"
+    >
       {/* Header */}
-      <div className="h-20 border-b border-surface-100 flex items-center px-8 bg-white z-10">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-primary-50 flex items-center justify-center">
-            <Bot className="w-6 h-6 text-primary-600" />
-          </div>
+      <div className="h-16 border-b border-surface-200 flex items-center px-6 bg-white z-10 shrink-0">
+        <div className="flex items-center gap-3">
+          <motion.div
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            className="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center"
+          >
+            <Bot className="w-5 h-5 text-primary-500" />
+          </motion.div>
           <div>
-            <h2 className="font-bold text-surface-900 text-lg">Safe AI Launch Advisor</h2>
-            <div className="text-sm text-surface-500 font-medium flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-accent-500"></div> Online
+            <h2 className="font-bold text-surface-900 text-[15px]">Predictify AI Advisor</h2>
+            <div className="text-[12px] text-surface-400 font-medium flex items-center gap-1.5">
+              <motion.div
+                animate={{ scale: [1, 1.3, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-2 h-2 rounded-full bg-accent-500"
+              />
+              Online
             </div>
           </div>
         </div>
       </div>
 
       {/* Chat Area */}
-      <div className="flex-1 overflow-y-auto p-8 space-y-6 bg-surface-50/50">
-        {messages.map((msg) => (
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            key={msg.id} 
-            className={`flex gap-4 max-w-[85%] ${msg.role === 'user' ? 'ml-auto flex-row-reverse' : ''}`}
-          >
-            <div className={`w-10 h-10 rounded-2xl shrink-0 flex items-center justify-center ${
-              msg.role === 'user' ? 'bg-surface-200' : 'bg-primary-50'
-            }`}>
-              {msg.role === 'user' ? (
-                <User className="w-5 h-5 text-surface-600" />
-              ) : (
-                <Bot className="w-5 h-5 text-primary-600" />
-              )}
-            </div>
-            <div className={`p-5 rounded-2xl text-[15px] font-medium leading-relaxed shadow-sm ${
-              msg.role === 'user' 
-                ? 'bg-primary-600 text-white rounded-tr-sm' 
-                : 'bg-white border border-surface-100 text-surface-800 rounded-tl-sm'
-            }`}>
-              {msg.content}
-            </div>
-          </motion.div>
-        ))}
+      <div className="flex-1 overflow-y-auto p-6 space-y-5 bg-surface-50/50">
+        <AnimatePresence mode="popLayout">
+          {messages.map((msg) => (
+            <motion.div 
+              custom={msg.role === 'user'}
+              variants={messageVariants}
+              initial="hidden"
+              animate="visible"
+              layout
+              key={msg.id} 
+              className={`flex gap-3 max-w-[85%] ${msg.role === 'user' ? 'ml-auto flex-row-reverse' : ''}`}
+            >
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25, delay: 0.1 }}
+                className={`w-8 h-8 rounded-xl shrink-0 flex items-center justify-center ${
+                  msg.role === 'user' ? 'bg-surface-100' : 'bg-primary-50'
+                }`}
+              >
+                {msg.role === 'user' ? (
+                  <User className="w-4 h-4 text-surface-500" />
+                ) : (
+                  <Bot className="w-4 h-4 text-primary-500" />
+                )}
+              </motion.div>
+              <div className={`px-4 py-3 rounded-2xl text-[14px] font-medium leading-relaxed ${
+                msg.role === 'user' 
+                  ? 'bg-primary-500 text-white rounded-tr-md shadow-sm shadow-primary-500/15' 
+                  : 'bg-white border border-surface-200 text-surface-700 rounded-tl-md shadow-sm'
+              }`}>
+                {msg.content}
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
         
-        {isTyping && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-4 max-w-[85%]">
-            <div className="w-10 h-10 rounded-2xl shrink-0 bg-primary-50 flex items-center justify-center">
-              <Bot className="w-5 h-5 text-primary-600" />
-            </div>
-            <div className="p-5 rounded-2xl bg-white border border-surface-100 rounded-tl-sm flex items-center gap-2 shadow-sm">
-              <div className="w-2 h-2 bg-surface-300 rounded-full animate-bounce"></div>
-              <div className="w-2 h-2 bg-surface-300 rounded-full animate-bounce [animation-delay:0.2s]"></div>
-              <div className="w-2 h-2 bg-surface-300 rounded-full animate-bounce [animation-delay:0.4s]"></div>
-            </div>
-          </motion.div>
-        )}
+        {/* Typing indicator with bounce animation */}
+        <AnimatePresence>
+          {isTyping && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2, ease: easeOutExpo }}
+              className="flex gap-3 max-w-[85%]"
+            >
+              <div className="w-8 h-8 rounded-xl shrink-0 bg-primary-50 flex items-center justify-center">
+                <Bot className="w-4 h-4 text-primary-500" />
+              </div>
+              <div className="px-4 py-3 rounded-2xl bg-white border border-surface-200 rounded-tl-md flex items-center gap-1.5 shadow-sm">
+                <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0 }} className="w-2 h-2 bg-surface-300 rounded-full" />
+                <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.15 }} className="w-2 h-2 bg-surface-300 rounded-full" />
+                <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.3 }} className="w-2 h-2 bg-surface-300 rounded-full" />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <div ref={messagesEndRef} />
       </div>
 
       {/* Suggested Prompts */}
-      <div className="px-8 pb-3 pt-4 flex gap-3 overflow-x-auto no-scrollbar bg-white">
+      <div className="px-6 pb-2 pt-3 flex gap-2 overflow-x-auto no-scrollbar bg-white border-t border-surface-100 shrink-0">
         {['How can I lower acquisition costs?', 'Analyze my competitors', 'What is a freemium model?'].map((prompt, i) => (
-          <button 
-            key={i} 
+          <motion.button 
+            key={i}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 + i * 0.06, duration: 0.25, ease: easeOutExpo }}
+            whileHover={{ scale: 1.04, y: -1 }}
+            whileTap={{ scale: 0.96 }}
             onClick={() => setInput(prompt)}
-            className="whitespace-nowrap px-4 py-2 rounded-xl bg-surface-50 hover:bg-primary-50 hover:text-primary-700 text-sm font-semibold text-surface-600 transition-colors border border-surface-100"
+            className="whitespace-nowrap px-3.5 py-1.5 rounded-xl bg-surface-50 hover:bg-primary-50 hover:text-primary-600 text-[13px] font-semibold text-surface-500 transition-colors border border-surface-200/60"
           >
             {prompt}
-          </button>
+          </motion.button>
         ))}
       </div>
 
       {/* Input Area */}
-      <div className="p-6 bg-white border-t border-surface-100">
+      <div className="p-4 bg-white border-t border-surface-100 shrink-0">
         <form onSubmit={handleSend} className="relative flex items-center">
           <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
+            type="text" value={input} onChange={(e) => setInput(e.target.value)}
             placeholder="Type your question..."
-            className="w-full pl-6 pr-20 py-4 rounded-2xl bg-surface-50 border border-surface-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none text-surface-900 font-medium placeholder:text-surface-400"
+            className="w-full pl-5 pr-14 py-3.5 rounded-2xl bg-surface-50 border border-surface-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-500/10 outline-none text-surface-900 font-medium text-[14px] placeholder:text-surface-400"
           />
-          <div className="absolute right-3 flex items-center gap-2">
-            <button 
+          <div className="absolute right-2 flex items-center">
+            <motion.button 
               type="submit" 
               disabled={!input.trim()}
-              className="p-3 rounded-xl bg-primary-600 hover:bg-primary-700 disabled:bg-surface-200 disabled:text-surface-400 text-white transition-colors shadow-sm"
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              className="p-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 disabled:bg-surface-100 disabled:text-surface-400 text-white transition-colors shadow-sm shadow-primary-500/15 disabled:shadow-none"
             >
-              <Send className="w-5 h-5" />
-            </button>
+              <Send className="w-4 h-4" />
+            </motion.button>
           </div>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 }
