@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ArrowRight, CheckCircle2, ShieldCheck, Target, TrendingUp, Zap, BarChart3, Lock, Sparkles } from 'lucide-react';
-import { motion, useInView, useSpring, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { setResults } from '../store/predictionSlice';
 
@@ -26,13 +26,6 @@ const gentleSpring = { type: 'spring' as const, stiffness: 200, damping: 24, mas
 
 // Stripe-style deliberate spring (for interactive elements)
 const interactiveSpring = { type: 'spring' as const, stiffness: 400, damping: 30 };
-
-// Fade Slide pattern (DesignMD enter/exit)
-const fadeSlide = {
-  hidden: { opacity: 0, y: 8 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.25, ease: easeOutExpo } },
-  exit: { opacity: 0, y: -4, transition: { duration: 0.15, ease: easeOutExpo } }
-};
 
 // Staggered children container
 const staggerContainer = (staggerDelay = 0.04) => ({
@@ -59,13 +52,6 @@ const gridStaggerItem = {
     opacity: 1, scale: 1,
     transition: { duration: 0.3, ease: easeOutExpo }
   }
-};
-
-// Scale Pop (for hover interactions)
-const scalePop = {
-  rest: { scale: 1 },
-  hover: { scale: 1.02, transition: { duration: 0.2, ease: easeOutExpo } },
-  tap: { scale: 0.98, transition: { duration: 0.1 } }
 };
 
 // Animated counter component (Number Counter pattern: 0→target · 1200ms · easeOutExpo)
