@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { ArrowRight, CheckCircle2, ShieldCheck, Target, TrendingUp, Zap, BarChart3, Lock, Sparkles } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ShieldCheck, Target, TrendingUp, Zap, BarChart3, Lock } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { setResults } from '../store/predictionSlice';
