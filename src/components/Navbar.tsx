@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { LayoutDashboard, History, MessageSquare, LogIn, Menu, X, Rocket, User } from 'lucide-react';
+import { LayoutDashboard, History, MessageSquare, LogIn, Menu, X, User } from 'lucide-react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../store';
