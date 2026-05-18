@@ -1,22 +1,78 @@
 import { useState } from 'react';
 import { Search, Filter, MoreHorizontal, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setResults } from '../store/predictionSlice';
 
 const MOCK_HISTORY = [
-  { id: 1, name: 'EcoPack Solutions', type: 'E-commerce', date: 'Oct 24, 2025', score: 87 },
-  { id: 2, name: 'FinFlow App', type: 'SaaS / Tech', date: 'Oct 12, 2025', score: 62 },
-  { id: 3, name: 'Local Chef Delivery', type: 'Marketplace', date: 'Sep 28, 2025', score: 45 },
-  { id: 4, name: 'AI Marketing Tool', type: 'SaaS / Tech', date: 'Sep 15, 2025', score: 92 },
-  { id: 5, name: 'VR Fitness Studio', type: 'HealthTech', date: 'Aug 30, 2025', score: 78 },
+  { 
+    id: 1, 
+    name: 'UniRide', 
+    type: 'Marketplace', 
+    date: 'May 16, 2026', 
+    score: 87,
+    details: {
+      successScore: 87,
+      weakPoints: ['Initial chicken-and-egg problem for drivers/riders', 'Insurance costs for student drivers'],
+      riskAnalysis: 'Low risk. High demand among university students for affordable transportation between campuses. The main challenge is achieving initial liquidity.',
+      recommendations: ['Partner with the student union for initial launch', 'Subsidize the first 50 drivers to ensure supply', 'Launch exclusively in one university first']
+    }
+  },
+  { 
+    id: 2, 
+    name: 'StudyNotes AI', 
+    type: 'EdTech', 
+    date: 'May 12, 2026', 
+    score: 62,
+    details: {
+      successScore: 62,
+      weakPoints: ['High churn rate after exams', 'Intellectual property concerns with university materials'],
+      riskAnalysis: 'Moderate risk. Very high competition with existing general AI tools. Students are reluctant to pay monthly subscriptions outside of exam seasons.',
+      recommendations: ['Shift to a pay-per-use model rather than monthly subscription', 'Focus strictly on specific medical or engineering courses', 'Build a community feature to retain users year-round']
+    }
+  },
+  { 
+    id: 3, 
+    name: 'GradGowns Rental', 
+    type: 'E-commerce', 
+    date: 'April 28, 2026', 
+    score: 45,
+    details: {
+      successScore: 45,
+      weakPoints: ['Extremely seasonal business (only active 2 months a year)', 'Logistics and dry-cleaning overhead'],
+      riskAnalysis: 'High risk. The business model cannot sustain a full-time team year-round. Profit margins are easily eaten up by damaged inventory.',
+      recommendations: ['Expand inventory to include formal wear for other events', 'Partner directly with universities instead of B2C marketing', 'Consider a peer-to-peer rental model to avoid buying inventory']
+    }
+  },
+  { 
+    id: 4, 
+    name: 'Campus Eats', 
+    type: 'Food Delivery', 
+    date: 'March 15, 2026', 
+    score: 72,
+    details: {
+      successScore: 72,
+      weakPoints: ['Low profit margins per order', 'Delivery staff retention during midterm/final weeks'],
+      riskAnalysis: 'Moderate risk. High order volume is guaranteed, but profitability relies heavily on operational efficiency and maintaining a steady fleet of student delivery riders.',
+      recommendations: ['Implement batch deliveries to dorms to save time', 'Offer premium subscriptions for free delivery', 'Partner with local off-campus restaurants popular with students']
+    }
+  }
 ];
 
 export default function History() {
   const [searchTerm, setSearchTerm] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const filteredHistory = MOCK_HISTORY.filter(item => 
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.type.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleViewDetails = (details: any) => {
+    dispatch(setResults(details));
+    navigate('/dashboard');
+  };
 
   return (
     <div className="py-8 max-w-5xl mx-auto space-y-8">
@@ -71,9 +127,12 @@ export default function History() {
               <button className="p-2.5 rounded-xl hover:bg-surface-50 text-surface-400 hover:text-surface-700 transition-colors">
                 <MoreHorizontal className="w-5 h-5" />
               </button>
-              <Link to="/dashboard" className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-50 text-primary-700 font-bold hover:bg-primary-100 transition-colors">
+              <button 
+                onClick={() => handleViewDetails(item.details)}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-50 text-primary-700 font-bold hover:bg-primary-100 transition-colors"
+              >
                 View Details <ArrowRight className="w-4 h-4" />
-              </Link>
+              </button>
             </div>
           </div>
         ))}

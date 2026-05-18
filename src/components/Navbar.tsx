@@ -20,8 +20,8 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-surface-200 bg-white/90 backdrop-blur-xl">
       <div className="container mx-auto px-6 max-w-7xl h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center group-hover:bg-primary-100 transition-colors">
-            <Rocket className="w-5 h-5 text-primary-600" />
+          <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center bg-white shadow-sm border border-surface-100">
+            <img src="/logo.png" alt="Logo" className="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
           </div>
           <span className="font-bold text-xl tracking-tight text-surface-900">
             Safe AI Launch

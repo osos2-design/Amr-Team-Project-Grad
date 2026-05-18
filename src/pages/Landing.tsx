@@ -1,7 +1,22 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { ArrowRight, CheckCircle2, ShieldCheck, Target, TrendingUp } from 'lucide-react';
+import { setResults } from '../store/predictionSlice';
 
 export default function Landing() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleViewExample = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dispatch(setResults({
+      successScore: 82,
+      weakPoints: ['Marketing budget is heavily reliant on paid ads', 'Team lacks a dedicated backend developer'],
+      riskAnalysis: 'Low risk overall. You have a solid validation plan, but you need to transition to organic growth channels sooner rather than later to sustain your margins.',
+      recommendations: ['Hire or partner with a technical lead', 'Start a campus ambassador program', 'Test pricing elasticity with a smaller cohort first']
+    }));
+    navigate('/dashboard');
+  };
   return (
     <div className="flex flex-col items-center bg-white">
       {/* Hero Section */}
@@ -26,9 +41,9 @@ export default function Landing() {
               Start Free Analysis
               <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link to="/login" className="w-full sm:w-auto px-8 py-4 rounded-xl bg-surface-50 text-surface-700 font-semibold hover:bg-surface-100 transition-all flex items-center justify-center border border-surface-200">
+            <button onClick={handleViewExample} className="w-full sm:w-auto px-8 py-4 rounded-xl bg-surface-50 text-surface-700 font-semibold hover:bg-surface-100 transition-all flex items-center justify-center border border-surface-200">
               View Example
-            </Link>
+            </button>
           </div>
           
           <div className="mt-10 flex items-center gap-4 text-sm font-medium text-surface-500">
