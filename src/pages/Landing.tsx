@@ -120,17 +120,6 @@ export default function Landing() {
           variants={staggerContainer(0.08)}
           className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto"
         >
-          {/* Badge — Scale Pop entrance */}
-          <motion.div
-            variants={gridStaggerItem}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-50 text-primary-600 text-[13px] font-semibold mb-8 border border-primary-200/60"
-          >
-            <motion.div animate={{ rotate: [0, 15, -15, 0] }} transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}>
-              <Sparkles className="w-3.5 h-3.5" />
-            </motion.div>
-            Built for Young Entrepreneurs
-          </motion.div>
-          
           {/* Title — Fade Slide with stagger */}
           <motion.h1
             variants={listStaggerItem}
@@ -252,16 +241,16 @@ export default function Landing() {
             className="grid grid-cols-1 md:grid-cols-3 gap-5"
           >
             {[
-              { icon: Target, title: 'Market Validation', desc: 'Understand your target audience and check if your solution actually solves a real problem in the market.', bg: 'bg-pastel-blue', iconBg: 'bg-primary-100', iconColor: 'text-primary-600' },
-              { icon: ShieldCheck, title: 'Risk Assessment', desc: 'Identify early red flags regarding funding, team experience, or aggressive competitors before they hit you.', bg: 'bg-pastel-green', iconBg: 'bg-accent-100', iconColor: 'text-accent-600' },
-              { icon: TrendingUp, title: 'Growth Strategy', desc: 'Get actionable steps and recommendations tailored specifically to your industry and business model.', bg: 'bg-pastel-purple', iconBg: 'bg-purple-100', iconColor: 'text-purple-600' }
+              { icon: Target, title: 'Market Validation', desc: 'Understand your target audience and check if your solution actually solves a real problem in the market.', iconBg: 'bg-primary-50', iconColor: 'text-primary-600' },
+              { icon: ShieldCheck, title: 'Risk Assessment', desc: 'Identify early red flags regarding funding, team experience, or aggressive competitors before they hit you.', iconBg: 'bg-accent-50', iconColor: 'text-accent-600' },
+              { icon: TrendingUp, title: 'Growth Strategy', desc: 'Get actionable steps and recommendations tailored specifically to your industry and business model.', iconBg: 'bg-purple-50', iconColor: 'text-purple-600' }
             ].map((feature, i) => (
               <motion.div
                 key={i}
                 variants={gridStaggerItem}
                 whileHover={{ y: -6, scale: 1.02, transition: { ...gentleSpring } }}
                 whileTap={{ scale: 0.98 }}
-                className={`${feature.bg} rounded-2xl p-7 border border-surface-200/40 hover:shadow-lg hover:shadow-surface-900/5 transition-shadow cursor-default group`}
+                className="bg-white rounded-2xl p-7 border border-surface-200 hover:border-primary-200 hover:shadow-xl hover:shadow-primary-500/5 transition-all cursor-default group"
               >
                 <motion.div
                   whileHover={{ rotate: [0, -10, 10, 0] }}
