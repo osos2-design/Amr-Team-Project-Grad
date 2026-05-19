@@ -76,12 +76,12 @@ export default function PredictForm() {
           const isActive = step >= i + 1;
           const isCurrent = step === i + 1;
           return (
-            <div key={i} className="relative z-10 flex flex-col items-center gap-3 bg-white px-2">
+            <div key={i} className="relative z-10 flex flex-col items-center gap-3 bg-card px-2">
               <motion.div
                 animate={isActive ? { scale: [1, 1.15, 1], backgroundColor: '#3B95F6' } : { scale: 1 }}
                 transition={{ duration: 0.35, ease: easeOutExpo }}
                 className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center transition-all ${
-                  isActive ? 'bg-primary-500 text-white shadow-sm shadow-primary-500/20' : 'bg-white border-2 border-surface-200 text-surface-400'
+                  isActive ? 'bg-primary-500 text-white shadow-sm shadow-primary-500/20' : 'bg-card border-2 border-surface-200 text-surface-400'
                 }`}
               >
                 {isActive && !isCurrent ? (
@@ -105,7 +105,7 @@ export default function PredictForm() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15, duration: 0.35, ease: easeOutExpo }}
-        className="bg-white border border-surface-200 rounded-2xl p-5 sm:p-10 shadow-sm mt-10 relative overflow-hidden"
+        className="bg-card border border-surface-200 rounded-2xl p-5 sm:p-10 shadow-sm mt-10 relative overflow-hidden"
       >
         <AnimatePresence mode="wait" custom={direction}>
           {step === 1 && (

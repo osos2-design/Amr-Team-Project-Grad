@@ -78,17 +78,17 @@ export default function Landing() {
           <motion.div 
             animate={{ scale: [1, 1.1, 1], rotate: [0, 90, 0] }} 
             transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-            className="absolute -top-[10%] -right-[10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-primary-200/40 rounded-full blur-[100px] mix-blend-multiply" 
+            className="absolute -top-[10%] -right-[10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-primary-200/40 dark:bg-primary-900/20 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen" 
           />
           <motion.div 
             animate={{ scale: [1, 1.2, 1], rotate: [0, -90, 0] }} 
             transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-            className="absolute top-[20%] -left-[10%] w-[50vw] h-[50vw] max-w-[700px] max-h-[700px] bg-accent-200/40 rounded-full blur-[100px] mix-blend-multiply" 
+            className="absolute top-[20%] -left-[10%] w-[50vw] h-[50vw] max-w-[700px] max-h-[700px] bg-accent-200/40 dark:bg-accent-800/20 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen" 
           />
           <motion.div 
             animate={{ scale: [1, 1.15, 1], y: [0, -50, 0] }} 
             transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute bottom-0 left-[20%] w-[70vw] h-[40vw] max-w-[1000px] max-h-[600px] bg-primary-100/60 rounded-full blur-[120px] mix-blend-multiply" 
+            className="absolute bottom-0 left-[20%] w-[70vw] h-[40vw] max-w-[1000px] max-h-[600px] bg-primary-100/60 dark:bg-primary-900/20 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen" 
           />
         </div>
 
@@ -113,10 +113,10 @@ export default function Landing() {
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: easeOutExpo }}
             className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
           >
-            <Link to="/predict" className="group relative w-full sm:w-auto overflow-hidden rounded-full bg-surface-900 px-8 py-4 text-[15px] font-bold text-white transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-surface-900/10 flex justify-center items-center gap-2">
+            <Link to="/predict" className="group relative w-full sm:w-auto overflow-hidden rounded-full bg-surface-900 px-8 py-4 text-[15px] font-bold text-surface-50 transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-surface-900/10 flex justify-center items-center gap-2">
               <span className="relative z-10 flex items-center gap-2">Analyze Your Idea <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
             </Link>
-            <button onClick={handleDemo} className="w-full sm:w-auto px-8 py-4 rounded-full glass-panel text-surface-900 font-bold text-[15px] hover:bg-white/80 transition-all active:scale-95 flex justify-center items-center">
+            <button onClick={handleDemo} className="w-full sm:w-auto px-8 py-4 rounded-full glass-panel text-surface-900 font-bold text-[15px] hover:bg-surface-50/80 transition-all active:scale-95 flex justify-center items-center">
               View Sample Report
             </button>
           </motion.div>
@@ -164,10 +164,10 @@ export default function Landing() {
             {/* Feature 1 */}
             <motion.div 
               initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: easeOutExpo }}
-              className="glass-panel rounded-[2rem] p-8 md:p-12 border-white/60 relative overflow-hidden group"
+              className="glass-panel rounded-[2rem] p-8 md:p-12 border-white/60 dark:border-surface-200/50 relative overflow-hidden group"
             >
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary-100 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:bg-primary-200 transition-colors duration-700" />
-              <div className="w-16 h-16 rounded-2xl bg-white shadow-sm border border-surface-100 flex items-center justify-center mb-8 relative z-10">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary-100 dark:bg-primary-900/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:bg-primary-200 dark:group-hover:bg-primary-800/30 transition-colors duration-700" />
+              <div className="w-16 h-16 rounded-2xl bg-card shadow-sm border border-surface-100 flex items-center justify-center mb-8 relative z-10">
                 <Target className="w-8 h-8 text-primary-500" />
               </div>
               <h3 className="text-3xl font-bold text-surface-900 mb-4 relative z-10">Market Alignment</h3>
@@ -183,10 +183,10 @@ export default function Landing() {
             {/* Feature 2 */}
             <motion.div 
               initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: easeOutExpo }}
-              className="glass-panel rounded-[2rem] p-8 md:p-12 border-white/60 relative overflow-hidden group"
+              className="glass-panel rounded-[2rem] p-8 md:p-12 border-white/60 dark:border-surface-200/50 relative overflow-hidden group"
             >
-              <div className="absolute top-0 right-0 w-64 h-64 bg-accent-100 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:bg-accent-200 transition-colors duration-700" />
-              <div className="w-16 h-16 rounded-2xl bg-white shadow-sm border border-surface-100 flex items-center justify-center mb-8 relative z-10">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-accent-100 dark:bg-accent-700/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:bg-accent-200 dark:group-hover:bg-accent-600/30 transition-colors duration-700" />
+              <div className="w-16 h-16 rounded-2xl bg-card shadow-sm border border-surface-100 flex items-center justify-center mb-8 relative z-10">
                 <ShieldAlert className="w-8 h-8 text-accent-500" />
               </div>
               <h3 className="text-3xl font-bold text-surface-900 mb-4 relative z-10">Risk Surface Mapping</h3>
@@ -204,10 +204,10 @@ export default function Landing() {
             {/* Feature 3 */}
             <motion.div 
               initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: easeOutExpo }}
-              className="glass-panel rounded-[2rem] p-8 md:p-12 border-white/60 relative overflow-hidden group"
+              className="glass-panel rounded-[2rem] p-8 md:p-12 border-white/60 dark:border-surface-200/50 relative overflow-hidden group"
             >
-              <div className="absolute top-0 right-0 w-64 h-64 bg-orange-100 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:bg-orange-200 transition-colors duration-700" />
-              <div className="w-16 h-16 rounded-2xl bg-white shadow-sm border border-surface-100 flex items-center justify-center mb-8 relative z-10">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-orange-100 dark:bg-orange-900/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:bg-orange-200 dark:group-hover:bg-orange-800/30 transition-colors duration-700" />
+              <div className="w-16 h-16 rounded-2xl bg-card shadow-sm border border-surface-100 flex items-center justify-center mb-8 relative z-10">
                 <LineChart className="w-8 h-8 text-orange-500" />
               </div>
               <h3 className="text-3xl font-bold text-surface-900 mb-4 relative z-10">Step-by-Step Playbooks</h3>
@@ -221,7 +221,7 @@ export default function Landing() {
       </section>
 
       {/* ─── DATA & TRUST: Minimalist Stats ─── */}
-      <section className="w-full py-24 bg-white border-y border-surface-100">
+      <section className="w-full py-24 bg-card border-y border-surface-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16">
             {[
@@ -247,7 +247,7 @@ export default function Landing() {
       {/* ─── CTA: The Final Ask ─── */}
       <section className="w-full py-32 md:py-48 relative overflow-hidden">
         {/* Soft background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-primary-100/50 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-primary-100/50 dark:bg-primary-900/10 rounded-full blur-[100px] pointer-events-none" />
         
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
           <motion.h2 
@@ -264,10 +264,10 @@ export default function Landing() {
           >
             <Link
               to="/predict"
-              className="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-surface-900 text-white font-bold text-[16px] hover:shadow-2xl hover:shadow-surface-900/20 transition-all group"
+              className="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-surface-900 text-surface-50 font-bold text-[16px] hover:shadow-2xl hover:shadow-surface-900/20 transition-all group"
             >
               Start Free Analysis
-              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+              <div className="w-8 h-8 rounded-full bg-surface-50/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>

@@ -84,10 +84,10 @@ export default function History() {
           <input 
             type="text" placeholder="Search by project name or industry..." 
             value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-surface-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-500/10 outline-none text-[14px] font-medium text-surface-900 placeholder:text-surface-400"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-card border border-surface-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-500/10 outline-none text-[14px] font-medium text-surface-900 placeholder:text-surface-400"
           />
         </div>
-        <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-surface-200 hover:bg-surface-50 transition-colors text-[14px] font-semibold text-surface-600">
+        <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-card border border-surface-200 hover:bg-surface-50 transition-colors text-[14px] font-semibold text-surface-600">
           <Filter className="w-4 h-4" /> Filters
         </motion.button>
       </motion.div>
@@ -107,7 +107,7 @@ export default function History() {
               layout
               exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
               whileHover={{ y: -2, boxShadow: '0 8px 25px -5px rgba(0, 0, 0, 0.06)', transition: { type: 'spring', stiffness: 300, damping: 25 } }}
-              className="bg-white border border-surface-200 rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors group"
+              className="bg-card border border-surface-200 rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors group"
             >
               <div className="flex items-center gap-5">
                 <motion.div
@@ -148,7 +148,7 @@ export default function History() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3, ease: easeOutExpo }}
-            className="text-center py-16 bg-white border border-surface-200 rounded-2xl"
+            className="text-center py-16 bg-card border border-surface-200 rounded-2xl"
           >
             <p className="text-surface-500 font-medium text-[14px]">No analyses found matching your search.</p>
           </motion.div>

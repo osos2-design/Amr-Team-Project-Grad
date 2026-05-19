@@ -120,7 +120,7 @@ export default function Dashboard() {
           <p className="text-surface-500 font-medium text-[14px]">Based on your recent input parameters.</p>
         </div>
         <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
-          <Link to="/chat" className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white border border-surface-200 hover:bg-surface-50 text-surface-600 text-[13px] font-semibold transition-colors flex items-center justify-center gap-2 shadow-sm">
+          <Link to="/chat" className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-card border border-surface-200 hover:bg-surface-50 text-surface-600 text-[13px] font-semibold transition-colors flex items-center justify-center gap-2 shadow-sm">
             <Lightbulb className="w-4 h-4 text-primary-500" /> Discuss with AI
           </Link>
         </motion.div>
@@ -128,7 +128,7 @@ export default function Dashboard() {
 
       <motion.div variants={staggerContainer(0.1)} initial="hidden" animate="visible" className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Success Score Ring */}
-        <motion.div variants={gridItem} whileHover={{ y: -4, transition: gentleSpring }} className="col-span-1 bg-white border border-surface-200 rounded-2xl p-5 sm:p-7 flex flex-col items-center justify-center shadow-sm">
+        <motion.div variants={gridItem} whileHover={{ y: -4, transition: gentleSpring }} className="col-span-1 bg-card border border-surface-200 rounded-2xl p-5 sm:p-7 flex flex-col items-center justify-center shadow-sm">
           <h3 className="text-[12px] font-semibold text-surface-400 mb-6 w-full text-center tracking-wider uppercase">Success Probability</h3>
           
           <div className="relative w-40 h-40 flex items-center justify-center">
@@ -160,7 +160,7 @@ export default function Dashboard() {
         </motion.div>
 
         {/* AI Risk Analysis */}
-        <motion.div variants={gridItem} whileHover={{ y: -4, transition: gentleSpring }} className="col-span-1 md:col-span-2 bg-white border border-surface-200 rounded-2xl p-5 sm:p-7 flex flex-col shadow-sm">
+        <motion.div variants={gridItem} whileHover={{ y: -4, transition: gentleSpring }} className="col-span-1 md:col-span-2 bg-card border border-surface-200 rounded-2xl p-5 sm:p-7 flex flex-col shadow-sm">
           <div className="flex items-center gap-3 mb-5">
             <div className="w-10 h-10 rounded-xl bg-pastel-orange flex items-center justify-center">
               <AlertCircle className="w-5 h-5 text-orange-500" />
@@ -173,7 +173,7 @@ export default function Dashboard() {
 
       <motion.div variants={staggerContainer(0.1)} initial="hidden" animate="visible" className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* Weak Points — List Stagger */}
-        <motion.div variants={gridItem} whileHover={{ y: -4, transition: gentleSpring }} className="bg-white border border-surface-200 rounded-2xl p-5 sm:p-7 shadow-sm">
+        <motion.div variants={gridItem} whileHover={{ y: -4, transition: gentleSpring }} className="bg-card border border-surface-200 rounded-2xl p-5 sm:p-7 shadow-sm">
           <div className="flex items-center gap-3 mb-5">
             <div className="w-10 h-10 rounded-xl bg-pastel-pink flex items-center justify-center">
               <XCircle className="w-5 h-5 text-danger-500" />
@@ -191,7 +191,7 @@ export default function Dashboard() {
         </motion.div>
 
         {/* Recommendations — List Stagger */}
-        <motion.div variants={gridItem} whileHover={{ y: -4, transition: gentleSpring }} className="bg-white border border-surface-200 rounded-2xl p-5 sm:p-7 shadow-sm">
+        <motion.div variants={gridItem} whileHover={{ y: -4, transition: gentleSpring }} className="bg-card border border-surface-200 rounded-2xl p-5 sm:p-7 shadow-sm">
           <div className="flex items-center gap-3 mb-5">
             <div className="w-10 h-10 rounded-xl bg-pastel-blue flex items-center justify-center">
               <CheckCircle2 className="w-5 h-5 text-primary-500" />

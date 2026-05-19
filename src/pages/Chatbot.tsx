@@ -72,10 +72,10 @@ export default function Chatbot() {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25, ease: easeOutExpo }}
-      className="h-[calc(100vh-8rem)] max-w-4xl mx-auto flex flex-col bg-white border border-surface-200 rounded-2xl shadow-sm overflow-hidden mt-2"
+      className="h-[calc(100vh-8rem)] max-w-4xl mx-auto flex flex-col bg-card border border-surface-200 rounded-2xl shadow-sm overflow-hidden mt-2"
     >
       {/* Header */}
-      <div className="h-16 border-b border-surface-200 flex items-center px-6 bg-white z-10 shrink-0">
+      <div className="h-16 border-b border-surface-200 flex items-center px-6 bg-card z-10 shrink-0">
         <div className="flex items-center gap-3">
           <motion.div
             initial={{ scale: 0.8 }}
@@ -129,7 +129,7 @@ export default function Chatbot() {
               <div className={`px-4 py-3 rounded-2xl text-[14px] font-medium leading-relaxed ${
                 msg.role === 'user' 
                   ? 'bg-primary-500 text-white rounded-tr-md shadow-sm shadow-primary-500/15' 
-                  : 'bg-white border border-surface-200 text-surface-700 rounded-tl-md shadow-sm'
+                  : 'bg-card border border-surface-200 text-surface-700 rounded-tl-md shadow-sm'
               }`}>
                 {msg.content}
               </div>
@@ -150,7 +150,7 @@ export default function Chatbot() {
               <div className="w-8 h-8 rounded-xl shrink-0 bg-primary-50 flex items-center justify-center">
                 <Bot className="w-4 h-4 text-primary-500" />
               </div>
-              <div className="px-4 py-3 rounded-2xl bg-white border border-surface-200 rounded-tl-md flex items-center gap-1.5 shadow-sm">
+              <div className="px-4 py-3 rounded-2xl bg-card border border-surface-200 rounded-tl-md flex items-center gap-1.5 shadow-sm">
                 <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0 }} className="w-2 h-2 bg-surface-300 rounded-full" />
                 <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.15 }} className="w-2 h-2 bg-surface-300 rounded-full" />
                 <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.3 }} className="w-2 h-2 bg-surface-300 rounded-full" />
@@ -162,7 +162,7 @@ export default function Chatbot() {
       </div>
 
       {/* Suggested Prompts */}
-      <div className="px-6 pb-2 pt-3 flex gap-2 overflow-x-auto no-scrollbar bg-white border-t border-surface-100 shrink-0">
+      <div className="px-6 pb-2 pt-3 flex gap-2 overflow-x-auto no-scrollbar bg-card border-t border-surface-100 shrink-0">
         {['How can I lower acquisition costs?', 'Analyze my competitors', 'What is a freemium model?'].map((prompt, i) => (
           <motion.button 
             key={i}
@@ -180,7 +180,7 @@ export default function Chatbot() {
       </div>
 
       {/* Input Area */}
-      <div className="p-4 bg-white border-t border-surface-100 shrink-0">
+      <div className="p-4 bg-card border-t border-surface-100 shrink-0">
         <form onSubmit={handleSend} className="relative flex items-center">
           <input
             type="text" value={input} onChange={(e) => setInput(e.target.value)}

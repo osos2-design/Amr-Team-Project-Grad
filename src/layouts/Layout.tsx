@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { Sparkles } from 'lucide-react';
+import ThemeToggle from '../components/ThemeToggle';
 
 export default function Layout() {
   const location = useLocation();
@@ -36,6 +37,8 @@ export default function Layout() {
           </div>
         </footer>
       )}
+
+      <ThemeToggle />
     </div>
   );
 }

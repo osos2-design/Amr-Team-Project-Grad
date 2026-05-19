@@ -26,7 +26,7 @@ export default function Register() {
         transition={{ duration: 0.4 }}
         className="w-full max-w-md"
       >
-        <div className="bg-white rounded-2xl border border-surface-200 shadow-lg shadow-surface-900/5 p-8 sm:p-10">
+        <div className="bg-card rounded-2xl border border-surface-200 shadow-lg shadow-surface-900/5 p-8 sm:p-10">
           <div className="flex justify-center mb-6">
             <div className="w-12 h-12 rounded-xl bg-primary-500 flex items-center justify-center shadow-sm shadow-primary-500/20">
               <Sparkles className="w-6 h-6 text-white" />

@@ -19,7 +19,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-2xl border-b border-surface-200 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+    <header className="sticky top-0 z-50 w-full bg-card/70 backdrop-blur-2xl border-b border-surface-200 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
       <div className="container mx-auto px-6 max-w-7xl h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 group">
@@ -47,7 +47,7 @@ export default function Navbar() {
                 to={item.path}
                 className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-[13px] font-semibold transition-all relative ${
                   isActive
-                    ? 'text-surface-900 bg-white shadow-sm border border-surface-200/50'
+                    ? 'text-surface-900 bg-card shadow-sm border border-surface-200/50'
                     : 'text-surface-500 hover:text-surface-900 hover:bg-surface-100'
                 }`}
               >
@@ -86,7 +86,7 @@ export default function Navbar() {
           <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} transition={{ type: 'spring', stiffness: 400, damping: 30 }}>
             <Link
               to="/predict"
-              className="px-4 py-2 rounded-xl bg-surface-900 text-white hover:bg-black text-[13px] font-bold transition-all shadow-md shadow-surface-900/10 hover:shadow-lg hover:shadow-surface-900/20"
+              className="px-4 py-2 rounded-xl bg-surface-900 text-surface-50 hover:bg-surface-800 text-[13px] font-bold transition-all shadow-md shadow-surface-900/10 hover:shadow-lg hover:shadow-surface-900/20"
             >
               New Analysis
             </Link>
@@ -121,7 +121,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: easeOutExpo }}
-            className="md:hidden overflow-hidden bg-white/95 backdrop-blur-xl border-b border-surface-200"
+            className="md:hidden overflow-hidden bg-card/95 backdrop-blur-xl border-b border-surface-200"
           >
             <motion.div
               initial="hidden"
@@ -167,7 +167,7 @@ export default function Navbar() {
               <motion.div variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0, transition: { duration: 0.25, ease: easeOutExpo } } }}>
                 <Link
                   to="/predict" onClick={() => setIsOpen(false)}
-                  className="flex justify-center items-center gap-2 py-3 rounded-xl bg-surface-900 text-white text-[14px] font-bold mt-1 shadow-md shadow-surface-900/10"
+                  className="flex justify-center items-center gap-2 py-3 rounded-xl bg-surface-900 text-surface-50 text-[14px] font-bold mt-1 shadow-md shadow-surface-900/10"
                 >
                   Start New Analysis
                 </Link>

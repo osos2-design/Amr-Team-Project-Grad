@@ -38,13 +38,13 @@ export default function Profile() {
         <p className="text-surface-500 font-medium text-[14px]">Manage your personal information and account security.</p>
       </div>
 
-      <div className="bg-white border border-surface-200 rounded-2xl overflow-hidden shadow-sm">
+      <div className="bg-card border border-surface-200 rounded-2xl overflow-hidden shadow-sm">
         {/* Banner — soft baby blue gradient */}
         <div className="h-28 bg-gradient-to-r from-primary-100 via-primary-50 to-pastel-blue relative" />
         
         <div className="px-7 pb-7">
           <div className="relative flex justify-between items-end -mt-10 mb-6">
-            <div className="w-20 h-20 rounded-2xl bg-white border-4 border-white shadow-md flex items-center justify-center overflow-hidden">
+            <div className="w-20 h-20 rounded-2xl bg-card border-4 border-background shadow-md flex items-center justify-center overflow-hidden">
               <div className="w-full h-full bg-primary-50 flex items-center justify-center text-primary-600 font-bold text-2xl">
                 {user.name.charAt(0).toUpperCase()}
               </div>
