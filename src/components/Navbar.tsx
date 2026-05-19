@@ -20,7 +20,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-card/70 backdrop-blur-2xl border-b border-surface-200 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
-      <div className="container mx-auto px-6 max-w-7xl h-16 flex items-center justify-between">
+      <div className="container mx-auto px-4 sm:px-6 max-w-7xl h-14 sm:h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 group">
           <motion.div

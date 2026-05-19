@@ -72,10 +72,10 @@ export default function Chatbot() {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25, ease: easeOutExpo }}
-      className="h-[calc(100vh-8rem)] max-w-4xl mx-auto flex flex-col bg-card border border-surface-200 rounded-2xl shadow-sm overflow-hidden mt-2"
+      className="h-[calc(100vh-6rem)] sm:h-[calc(100vh-8rem)] max-w-4xl mx-auto flex flex-col bg-card border border-surface-200 rounded-none sm:rounded-2xl shadow-sm overflow-hidden sm:mt-2"
     >
       {/* Header */}
-      <div className="h-16 border-b border-surface-200 flex items-center px-6 bg-card z-10 shrink-0">
+      <div className="h-14 sm:h-16 border-b border-surface-200 flex items-center px-4 sm:px-6 bg-card z-10 shrink-0">
         <div className="flex items-center gap-3">
           <motion.div
             initial={{ scale: 0.8 }}
@@ -100,7 +100,7 @@ export default function Chatbot() {
       </div>
 
       {/* Chat Area */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-5 bg-surface-50/50">
+      <div className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-4 sm:space-y-5 bg-surface-50/50">
         <AnimatePresence mode="popLayout">
           {messages.map((msg) => (
             <motion.div 
@@ -110,13 +110,13 @@ export default function Chatbot() {
               animate="visible"
               layout
               key={msg.id} 
-              className={`flex gap-3 max-w-[85%] ${msg.role === 'user' ? 'ml-auto flex-row-reverse' : ''}`}
+              className={`flex gap-2 sm:gap-3 max-w-[92%] sm:max-w-[85%] ${msg.role === 'user' ? 'ml-auto flex-row-reverse' : ''}`}
             >
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 25, delay: 0.1 }}
-                className={`w-8 h-8 rounded-xl shrink-0 flex items-center justify-center ${
+                className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl shrink-0 flex items-center justify-center hidden sm:flex ${
                   msg.role === 'user' ? 'bg-surface-100' : 'bg-primary-50'
                 }`}
               >
@@ -145,7 +145,7 @@ export default function Chatbot() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2, ease: easeOutExpo }}
-              className="flex gap-3 max-w-[85%]"
+              className="flex gap-2 sm:gap-3 max-w-[92%] sm:max-w-[85%]"
             >
               <div className="w-8 h-8 rounded-xl shrink-0 bg-primary-50 flex items-center justify-center">
                 <Bot className="w-4 h-4 text-primary-500" />
@@ -162,7 +162,7 @@ export default function Chatbot() {
       </div>
 
       {/* Suggested Prompts */}
-      <div className="px-6 pb-2 pt-3 flex gap-2 overflow-x-auto no-scrollbar bg-card border-t border-surface-100 shrink-0">
+      <div className="px-3 sm:px-6 pb-2 pt-2 sm:pt-3 flex gap-2 overflow-x-auto no-scrollbar bg-card border-t border-surface-100 shrink-0">
         {['How can I lower acquisition costs?', 'Analyze my competitors', 'What is a freemium model?'].map((prompt, i) => (
           <motion.button 
             key={i}
@@ -180,12 +180,12 @@ export default function Chatbot() {
       </div>
 
       {/* Input Area */}
-      <div className="p-4 bg-card border-t border-surface-100 shrink-0">
+      <div className="p-3 sm:p-4 bg-card border-t border-surface-100 shrink-0">
         <form onSubmit={handleSend} className="relative flex items-center">
           <input
             type="text" value={input} onChange={(e) => setInput(e.target.value)}
             placeholder="Type your question..."
-            className="w-full pl-5 pr-14 py-3.5 rounded-2xl bg-surface-50 border border-surface-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-500/10 outline-none text-surface-900 font-medium text-[14px] placeholder:text-surface-400"
+            className="w-full pl-4 sm:pl-5 pr-12 sm:pr-14 py-3 sm:py-3.5 rounded-2xl bg-surface-50 border border-surface-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-500/10 outline-none text-surface-900 font-medium text-[14px] placeholder:text-surface-400"
           />
           <div className="absolute right-2 flex items-center">
             <motion.button 

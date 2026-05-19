@@ -11,13 +11,13 @@ export default function Layout() {
     <div className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary-500/20">
       <Navbar />
       
-      <main className={`flex-grow ${isDashboardLayout ? 'container mx-auto px-6 py-10 max-w-7xl' : ''}`}>
+      <main className={`flex-grow ${isDashboardLayout ? 'container mx-auto px-4 sm:px-6 py-6 sm:py-10 max-w-7xl' : ''}`}>
         <Outlet />
       </main>
 
       {!isDashboardLayout && (
-        <footer className="border-t border-surface-200 py-14 bg-surface-50">
-          <div className="container mx-auto px-6 max-w-7xl flex flex-col md:flex-row justify-between items-center gap-6">
+        <footer className="border-t border-surface-200 py-8 sm:py-14 bg-surface-50">
+          <div className="container mx-auto px-4 sm:px-6 max-w-7xl flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
             <div className="flex items-center gap-2.5">
               <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-sm shadow-primary-500/20">
                 <Sparkles className="w-3.5 h-3.5 text-white" />
@@ -26,7 +26,7 @@ export default function Layout() {
                 Predictify AI
               </span>
             </div>
-            <div className="flex gap-6 text-[14px] font-medium text-surface-500">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-[13px] sm:text-[14px] font-medium text-surface-500">
               <a href="#" className="hover:text-primary-600 transition-colors">About Us</a>
               <a href="#" className="hover:text-primary-600 transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-primary-600 transition-colors">Terms of Service</a>

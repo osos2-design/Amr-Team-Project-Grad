@@ -76,7 +76,7 @@ export default function PredictForm() {
           const isActive = step >= i + 1;
           const isCurrent = step === i + 1;
           return (
-            <div key={i} className="relative z-10 flex flex-col items-center gap-3 bg-card px-2">
+            <div key={i} className="relative z-10 flex flex-col items-center gap-3 bg-background px-2">
               <motion.div
                 animate={isActive ? { scale: [1, 1.15, 1], backgroundColor: '#3B95F6' } : { scale: 1 }}
                 transition={{ duration: 0.35, ease: easeOutExpo }}

@@ -33,7 +33,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="fixed bottom-6 right-6 p-3.5 rounded-full bg-surface-50 border border-surface-200 text-surface-600 hover:text-primary-500 hover:border-primary-200 shadow-xl shadow-black/5 dark:shadow-black/40 transition-all duration-300 z-50 group hover:scale-110 active:scale-95"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 p-3 sm:p-3.5 rounded-full bg-surface-50 border border-surface-200 text-surface-600 hover:text-primary-500 hover:border-primary-200 shadow-xl shadow-black/5 dark:shadow-black/40 transition-all duration-300 z-50 group hover:scale-110 active:scale-95"
       aria-label="Toggle theme"
     >
       {isDark ? (

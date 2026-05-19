@@ -72,7 +72,7 @@ export default function Landing() {
     <div className="flex flex-col items-center bg-background overflow-hidden">
       
       {/* ─── HERO SECTION: Ethereal Mesh Gradient ─── */}
-      <section className="relative w-full min-h-[95vh] flex items-center justify-center pt-24 pb-20 px-6">
+      <section className="relative w-full min-h-[85vh] sm:min-h-[95vh] flex items-center justify-center pt-20 sm:pt-24 pb-12 sm:pb-20 px-4 sm:px-6">
         {/* Soft Mesh Gradients */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <motion.div 
@@ -92,11 +92,11 @@ export default function Landing() {
           />
         </div>
 
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto mt-10">
+        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto mt-4 sm:mt-10">
 
           <motion.h1 
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.1, ease: easeOutExpo }}
-            className="text-[52px] sm:text-[72px] md:text-[88px] font-bold tracking-tight leading-[1.05] text-surface-900 mb-8"
+            className="text-[36px] sm:text-[52px] md:text-[72px] lg:text-[88px] font-bold tracking-tight leading-[1.08] text-surface-900 mb-5 sm:mb-8"
           >
             Clarity before <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-accent-500">launching your startup.</span>
@@ -104,7 +104,7 @@ export default function Landing() {
           
           <motion.p 
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.2, ease: easeOutExpo }}
-            className="text-lg md:text-2xl text-surface-500 mb-14 max-w-2xl leading-relaxed font-medium"
+            className="text-base sm:text-lg md:text-2xl text-surface-500 mb-8 sm:mb-14 max-w-2xl leading-relaxed font-medium px-2 sm:px-0"
           >
             An intelligent validation engine for founders. We simulate market conditions and identify risks so you can launch with absolute certainty.
           </motion.p>
@@ -124,12 +124,12 @@ export default function Landing() {
       </section>
 
       {/* ─── EDITORIAL SECTION: Sticky Scroll ─── */}
-      <section ref={featuresRef} className="relative w-full max-w-7xl mx-auto px-6 py-24 md:py-40">
-        <div className="flex flex-col lg:flex-row items-start gap-16 lg:gap-24 relative">
+      <section ref={featuresRef} className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-40">
+        <div className="flex flex-col lg:flex-row items-start gap-10 sm:gap-16 lg:gap-24 relative">
           
           {/* Sticky Left Sidebar */}
           <div className="lg:w-1/3 lg:sticky lg:top-40 relative z-20">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-surface-900 mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-surface-900 mb-4 sm:mb-6">
               The Engine.
             </h2>
             <p className="text-lg text-surface-500 leading-relaxed mb-12">
@@ -159,22 +159,22 @@ export default function Landing() {
           </div>
 
           {/* Scrolling Right Cards */}
-          <div className="lg:w-2/3 flex flex-col gap-16 md:gap-32 relative z-10">
+          <div className="lg:w-2/3 flex flex-col gap-8 sm:gap-16 md:gap-32 relative z-10">
             
             {/* Feature 1 */}
             <motion.div 
               initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: easeOutExpo }}
-              className="glass-panel rounded-[2rem] p-8 md:p-12 border-white/60 dark:border-surface-200/50 relative overflow-hidden group"
+              className="glass-panel rounded-2xl sm:rounded-[2rem] p-5 sm:p-8 md:p-12 border-white/60 dark:border-surface-200/50 relative overflow-hidden group"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary-100 dark:bg-primary-900/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:bg-primary-200 dark:group-hover:bg-primary-800/30 transition-colors duration-700" />
               <div className="w-16 h-16 rounded-2xl bg-card shadow-sm border border-surface-100 flex items-center justify-center mb-8 relative z-10">
                 <Target className="w-8 h-8 text-primary-500" />
               </div>
-              <h3 className="text-3xl font-bold text-surface-900 mb-4 relative z-10">Market Alignment</h3>
-              <p className="text-lg text-surface-500 leading-relaxed relative z-10 max-w-lg mb-8">
+              <h3 className="text-2xl sm:text-3xl font-bold text-surface-900 mb-3 sm:mb-4 relative z-10">Market Alignment</h3>
+              <p className="text-base sm:text-lg text-surface-500 leading-relaxed relative z-10 max-w-lg mb-5 sm:mb-8">
                 Stop building features nobody wants. We analyze your core value proposition against real-world market demands to ensure you have a targeted, hungry audience.
               </p>
-              <div className="flex gap-4 relative z-10">
+              <div className="flex flex-wrap gap-2 sm:gap-4 relative z-10">
                 <div className="px-4 py-2 rounded-lg bg-surface-50 border border-surface-100 text-[13px] font-bold text-surface-700">Competitor Density</div>
                 <div className="px-4 py-2 rounded-lg bg-surface-50 border border-surface-100 text-[13px] font-bold text-surface-700">Audience Targeting</div>
               </div>
@@ -183,14 +183,14 @@ export default function Landing() {
             {/* Feature 2 */}
             <motion.div 
               initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: easeOutExpo }}
-              className="glass-panel rounded-[2rem] p-8 md:p-12 border-white/60 dark:border-surface-200/50 relative overflow-hidden group"
+              className="glass-panel rounded-2xl sm:rounded-[2rem] p-5 sm:p-8 md:p-12 border-white/60 dark:border-surface-200/50 relative overflow-hidden group"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-accent-100 dark:bg-accent-700/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:bg-accent-200 dark:group-hover:bg-accent-600/30 transition-colors duration-700" />
               <div className="w-16 h-16 rounded-2xl bg-card shadow-sm border border-surface-100 flex items-center justify-center mb-8 relative z-10">
                 <ShieldAlert className="w-8 h-8 text-accent-500" />
               </div>
-              <h3 className="text-3xl font-bold text-surface-900 mb-4 relative z-10">Risk Surface Mapping</h3>
-              <p className="text-lg text-surface-500 leading-relaxed relative z-10 max-w-lg mb-8">
+              <h3 className="text-2xl sm:text-3xl font-bold text-surface-900 mb-3 sm:mb-4 relative z-10">Risk Surface Mapping</h3>
+              <p className="text-base sm:text-lg text-surface-500 leading-relaxed relative z-10 max-w-lg mb-5 sm:mb-8">
                 Identify operational, technical, and financial risks before you spend a dime. Our models flag potential pitfalls that kill 90% of early-stage startups.
               </p>
               <div className="w-full h-24 rounded-xl bg-surface-50 border border-surface-100 relative z-10 flex items-center px-6 overflow-hidden">
@@ -204,14 +204,14 @@ export default function Landing() {
             {/* Feature 3 */}
             <motion.div 
               initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: easeOutExpo }}
-              className="glass-panel rounded-[2rem] p-8 md:p-12 border-white/60 dark:border-surface-200/50 relative overflow-hidden group"
+              className="glass-panel rounded-2xl sm:rounded-[2rem] p-5 sm:p-8 md:p-12 border-white/60 dark:border-surface-200/50 relative overflow-hidden group"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-orange-100 dark:bg-orange-900/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:bg-orange-200 dark:group-hover:bg-orange-800/30 transition-colors duration-700" />
               <div className="w-16 h-16 rounded-2xl bg-card shadow-sm border border-surface-100 flex items-center justify-center mb-8 relative z-10">
                 <LineChart className="w-8 h-8 text-orange-500" />
               </div>
-              <h3 className="text-3xl font-bold text-surface-900 mb-4 relative z-10">Step-by-Step Playbooks</h3>
-              <p className="text-lg text-surface-500 leading-relaxed relative z-10 max-w-lg">
+              <h3 className="text-2xl sm:text-3xl font-bold text-surface-900 mb-3 sm:mb-4 relative z-10">Step-by-Step Playbooks</h3>
+              <p className="text-base sm:text-lg text-surface-500 leading-relaxed relative z-10 max-w-lg">
                 Walk away with a comprehensive roadmap. We provide custom recommendations for MVP features, marketing channels, and timeline expectations based on your specific niche.
               </p>
             </motion.div>
@@ -221,9 +221,9 @@ export default function Landing() {
       </section>
 
       {/* ─── DATA & TRUST: Minimalist Stats ─── */}
-      <section className="w-full py-24 bg-card border-y border-surface-100">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16">
+      <section className="w-full py-14 sm:py-24 bg-card border-y border-surface-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-x-6 sm:gap-x-8 gap-y-8 sm:gap-y-16">
             {[
               { value: '14K+', label: 'Ideas Validated', icon: Zap },
               { value: '94%', label: 'Prediction Accuracy', icon: Activity },
@@ -236,7 +236,7 @@ export default function Landing() {
                 className="flex flex-col border-l-2 border-surface-100 pl-6"
               >
                 <stat.icon className="w-5 h-5 text-surface-300 mb-6" />
-                <div className="text-3xl md:text-4xl font-bold text-surface-900 tracking-tight mb-2"><AnimatedCounter value={stat.value} /></div>
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-surface-900 tracking-tight mb-2"><AnimatedCounter value={stat.value} /></div>
                 <div className="text-[14px] font-medium text-surface-500">{stat.label}</div>
               </motion.div>
             ))}
@@ -245,14 +245,14 @@ export default function Landing() {
       </section>
 
       {/* ─── CTA: The Final Ask ─── */}
-      <section className="w-full py-32 md:py-48 relative overflow-hidden">
+      <section className="w-full py-20 sm:py-32 md:py-48 relative overflow-hidden">
         {/* Soft background glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-primary-100/50 dark:bg-primary-900/10 rounded-full blur-[100px] pointer-events-none" />
         
-        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
           <motion.h2 
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease: easeOutExpo }}
-            className="text-4xl md:text-[64px] font-bold tracking-tight text-surface-900 mb-8 leading-[1.1]"
+            className="text-3xl sm:text-4xl md:text-[64px] font-bold tracking-tight text-surface-900 mb-6 sm:mb-8 leading-[1.1]"
           >
             Ready to build <br />
             with <span className="italic font-light text-primary-500">confidence?</span>
