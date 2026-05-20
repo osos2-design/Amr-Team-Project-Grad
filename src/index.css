@@ -27,17 +27,17 @@
   --color-accent-600: #4F46E5;
   --color-accent-700: #4338CA;
 
-  /* Surfaces: Soft Warm Whites & Grays */
+  /* Surfaces: Warm Whites & Grays — tuned for light mode contrast */
   --color-surface-50:  #FFFFFF;
-  --color-surface-100: #FCFCFC;
-  --color-surface-200: #F3F4F6;
-  --color-surface-300: #E5E7EB;
-  --color-surface-400: #9CA3AF;
-  --color-surface-500: #6B7280;
-  --color-surface-600: #4B5563;
-  --color-surface-700: #374151;
-  --color-surface-800: #1F2937;
-  --color-surface-900: #111827;
+  --color-surface-100: #F8FAFE;
+  --color-surface-200: #EDF1F7;
+  --color-surface-300: #DEE3EC;
+  --color-surface-400: #8B95A6;
+  --color-surface-500: #5C6678;
+  --color-surface-600: #404956;
+  --color-surface-700: #2E3642;
+  --color-surface-800: #1C222B;
+  --color-surface-900: #0F1318;
 
   /* Danger */
   --color-danger-50:  #FEF2F2;
@@ -64,11 +64,11 @@
 
 @layer base {
   :root {
-    --background: #FCFCFC;
-    --foreground: #111827;
+    --background: #F0F4F9;
+    --foreground: #0F1318;
     --card: #FFFFFF;
-    --card-foreground: #111827;
-    --border: #E5E7EB;
+    --card-foreground: #0F1318;
+    --border: #DEE3EC;
   }
 
   .dark {
@@ -111,10 +111,20 @@
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   
   .glass-panel {
-    @apply bg-white/70 backdrop-blur-3xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)];
+    @apply bg-white/80 backdrop-blur-2xl border border-surface-200/80 shadow-[0_8px_40px_rgb(0,0,0,0.06)];
   }
 
   .dark .glass-panel {
     @apply bg-surface-100/60 backdrop-blur-3xl border-surface-200 shadow-[0_8px_30px_rgb(0,0,0,0.4)];
+  }
+
+  /* Decorative dot grid for light mode backgrounds */
+  .dot-grid {
+    background-image: radial-gradient(circle, #c8d1dc 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .dark .dot-grid {
+    background-image: radial-gradient(circle, #1e212b 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 }

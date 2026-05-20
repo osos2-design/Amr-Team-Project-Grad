@@ -16,7 +16,7 @@ export default function Layout() {
       </main>
 
       {!isDashboardLayout && (
-        <footer className="border-t border-surface-200 py-8 sm:py-14 bg-surface-50">
+        <footer className="border-t border-surface-300 py-8 sm:py-14 bg-card">
           <div className="container mx-auto px-4 sm:px-6 max-w-7xl flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
             <div className="flex items-center gap-2.5">
               <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-sm shadow-primary-500/20">

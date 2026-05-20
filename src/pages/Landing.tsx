@@ -73,23 +73,25 @@ export default function Landing() {
       
       {/* ─── HERO SECTION: Ethereal Mesh Gradient ─── */}
       <section className="relative w-full min-h-[85vh] sm:min-h-[95vh] flex items-center justify-center pt-20 sm:pt-24 pb-12 sm:pb-20 px-4 sm:px-6">
-        {/* Soft Mesh Gradients */}
+        {/* Soft Mesh Gradients — Boosted for light mode visibility */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <motion.div 
             animate={{ scale: [1, 1.1, 1], rotate: [0, 90, 0] }} 
             transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-            className="absolute -top-[10%] -right-[10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-primary-200/40 dark:bg-primary-900/20 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen" 
+            className="absolute -top-[10%] -right-[10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-primary-300/60 dark:bg-primary-900/20 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen" 
           />
           <motion.div 
             animate={{ scale: [1, 1.2, 1], rotate: [0, -90, 0] }} 
             transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-            className="absolute top-[20%] -left-[10%] w-[50vw] h-[50vw] max-w-[700px] max-h-[700px] bg-accent-200/40 dark:bg-accent-800/20 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen" 
+            className="absolute top-[20%] -left-[10%] w-[50vw] h-[50vw] max-w-[700px] max-h-[700px] bg-accent-200/50 dark:bg-accent-800/20 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen" 
           />
           <motion.div 
             animate={{ scale: [1, 1.15, 1], y: [0, -50, 0] }} 
             transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute bottom-0 left-[20%] w-[70vw] h-[40vw] max-w-[1000px] max-h-[600px] bg-primary-100/60 dark:bg-primary-900/20 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen" 
+            className="absolute bottom-0 left-[20%] w-[70vw] h-[40vw] max-w-[1000px] max-h-[600px] bg-primary-200/70 dark:bg-primary-900/20 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen" 
           />
+          {/* Dot grid texture */}
+          <div className="absolute inset-0 dot-grid opacity-40 dark:opacity-20" />
         </div>
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto mt-4 sm:mt-10">
@@ -125,6 +127,8 @@ export default function Landing() {
 
       {/* ─── EDITORIAL SECTION: Sticky Scroll ─── */}
       <section ref={featuresRef} className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-40">
+        {/* Decorative glow for editorial section */}
+        <div className="absolute -top-20 -left-20 w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] bg-primary-200/30 dark:bg-primary-900/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="flex flex-col lg:flex-row items-start gap-10 sm:gap-16 lg:gap-24 relative">
           
           {/* Sticky Left Sidebar */}
@@ -221,7 +225,7 @@ export default function Landing() {
       </section>
 
       {/* ─── DATA & TRUST: Minimalist Stats ─── */}
-      <section className="w-full py-14 sm:py-24 bg-card border-y border-surface-100">
+      <section className="w-full py-14 sm:py-24 bg-card border-y border-surface-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-x-6 sm:gap-x-8 gap-y-8 sm:gap-y-16">
             {[
@@ -247,7 +251,9 @@ export default function Landing() {
       {/* ─── CTA: The Final Ask ─── */}
       <section className="w-full py-20 sm:py-32 md:py-48 relative overflow-hidden">
         {/* Soft background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-primary-100/50 dark:bg-primary-900/10 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-primary-200/40 dark:bg-primary-900/10 rounded-full blur-[100px] pointer-events-none" />
+        {/* Dot grid texture */}
+        <div className="absolute inset-0 dot-grid opacity-30 dark:opacity-15 pointer-events-none" />
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
           <motion.h2 
