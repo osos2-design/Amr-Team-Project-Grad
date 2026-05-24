@@ -82,22 +82,22 @@ export default function NeonHeroDecoration() {
       {/* 1. Canvas Stars Background */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-0" />
 
-      {/* 2. Vertical Volumetric Light Ray (Spotlight) */}
+      {/* 2. Vertical Volumetric Light Ray (Spotlight) — behind text */}
       <motion.div 
         initial={{ opacity: 0, scaleY: 0 }}
         animate={{ opacity: 1, scaleY: 1 }}
         transition={{ duration: 1.5, delay: 1.25, ease: [0.16, 1, 0.3, 1] }}
-        style={{ transformOrigin: "bottom" }}
-        className="absolute top-[10%] sm:top-[20%] left-1/2 -translate-x-1/2 w-[200px] sm:w-[350px] md:w-[500px] h-[70%] sm:h-[60%] bg-gradient-to-t from-cyan-400/40 via-cyan-500/10 to-transparent blur-[50px] sm:blur-[60px] z-10"
+        style={{ transformOrigin: "top center" }}
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[450px] md:w-[600px] h-[85%] bg-gradient-to-b from-cyan-400/35 via-cyan-500/12 to-transparent blur-[60px] sm:blur-[70px] z-[5]"
       />
 
       {/* Additional intense core for the light ray */}
       <motion.div 
         initial={{ opacity: 0, scaleY: 0 }}
         animate={{ opacity: 1, scaleY: 1 }}
-        transition={{ duration: 1.2, delay: 1.25, ease: [0.16, 1, 0.3, 1] }}
-        style={{ transformOrigin: "bottom" }}
-        className="absolute top-[20%] sm:top-[30%] left-1/2 -translate-x-1/2 w-[80px] sm:w-[120px] h-[60%] sm:h-[50%] bg-gradient-to-t from-cyan-300/60 via-cyan-400/20 to-transparent blur-[30px] sm:blur-[40px] z-10"
+        transition={{ duration: 1.2, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
+        style={{ transformOrigin: "top center" }}
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[100px] sm:w-[160px] h-[75%] bg-gradient-to-b from-cyan-300/50 via-cyan-400/15 to-transparent blur-[35px] sm:blur-[45px] z-[5]"
       />
 
       {/* 3. The Curved Planet Horizon */}
