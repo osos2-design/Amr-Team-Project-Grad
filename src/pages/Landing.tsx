@@ -4,8 +4,33 @@ import { ArrowRight, Activity, ShieldAlert, Sparkles, LineChart, Target, Zap } f
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { setResults } from '../store/predictionSlice';
+import NeonHeroDecoration from '../components/NeonHeroDecoration';
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
+
+function useDarkMode() {
+  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
+
+  useEffect(() => {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          setIsDark(document.documentElement.classList.contains('dark'));
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return isDark;
+}
+
 
 function AnimatedCounter({ value }: { value: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -44,6 +69,7 @@ function AnimatedCounter({ value }: { value: string }) {
 export default function Landing() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isDark = useDarkMode();
   
   // Scroll animations for the hero
   const { scrollYProgress } = useScroll();
@@ -74,25 +100,29 @@ export default function Landing() {
       {/* ─── HERO SECTION: Ethereal Mesh Gradient ─── */}
       <section className="relative w-full min-h-[85vh] sm:min-h-[95vh] flex items-center justify-center pt-20 sm:pt-24 pb-12 sm:pb-20 px-4 sm:px-6">
         {/* Soft Mesh Gradients — Boosted for light mode visibility */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <motion.div 
-            animate={{ scale: [1, 1.1, 1], rotate: [0, 90, 0] }} 
-            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-            className="absolute -top-[10%] -right-[10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-primary-300/60 dark:bg-primary-900/20 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen" 
-          />
-          <motion.div 
-            animate={{ scale: [1, 1.2, 1], rotate: [0, -90, 0] }} 
-            transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-            className="absolute top-[20%] -left-[10%] w-[50vw] h-[50vw] max-w-[700px] max-h-[700px] bg-accent-200/50 dark:bg-accent-800/20 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen" 
-          />
-          <motion.div 
-            animate={{ scale: [1, 1.15, 1], y: [0, -50, 0] }} 
-            transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute bottom-0 left-[20%] w-[70vw] h-[40vw] max-w-[1000px] max-h-[600px] bg-primary-200/70 dark:bg-primary-900/20 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen" 
-          />
-          {/* Dot grid texture */}
-          <div className="absolute inset-0 dot-grid opacity-40 dark:opacity-20" />
-        </div>
+        {isDark ? (
+          <NeonHeroDecoration />
+        ) : (
+          <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+            <motion.div 
+              animate={{ scale: [1, 1.1, 1], rotate: [0, 90, 0] }} 
+              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+              className="absolute -top-[10%] -right-[10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-primary-300/60 rounded-full blur-[100px] mix-blend-multiply" 
+            />
+            <motion.div 
+              animate={{ scale: [1, 1.2, 1], rotate: [0, -90, 0] }} 
+              transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+              className="absolute top-[20%] -left-[10%] w-[50vw] h-[50vw] max-w-[700px] max-h-[700px] bg-accent-200/50 rounded-full blur-[100px] mix-blend-multiply" 
+            />
+            <motion.div 
+              animate={{ scale: [1, 1.15, 1], y: [0, -50, 0] }} 
+              transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute bottom-0 left-[20%] w-[70vw] h-[40vw] max-w-[1000px] max-h-[600px] bg-primary-200/70 rounded-full blur-[120px] mix-blend-multiply" 
+            />
+            {/* Dot grid texture */}
+            <div className="absolute inset-0 dot-grid opacity-40" />
+          </div>
+        )}
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto mt-4 sm:mt-10">
 
